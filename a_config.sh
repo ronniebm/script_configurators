@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 # function that handles command-not-found message.
-command_not_found_handle()
-{
-return 127
-}
+#command_not_found_handle()
+#{
+#return 127
+#}
 
 # user prompt message.
 prompt()
@@ -75,8 +75,9 @@ install_betty()
 	echo "    \${BIN_PATH}/\${BETTY_STYLE} \"\$argument\"" >> $file;
 	echo "    \${BIN_PATH}/\${BETTY_DOC} \"\$argument\"" >> $file;
 	echo "done" >> $file;
-	chmod a+x $file
-	sudo mv $file /bin/
+	chmod a+x $file;
+	rm -r Betty;
+	sudo mv $file /bin/;
 	echo "******************"
 	echo "betty installed OK"
 	echo "******************"
