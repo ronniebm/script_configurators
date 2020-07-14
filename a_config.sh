@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 # function that handles command-not-found message.
-#command_not_found_handle()
-#{
-#return 127
-#}
+command_not_found_handle()
+{
+return 127;
+}
 
 # user prompt message.
 prompt()
@@ -31,14 +31,14 @@ echo '';
 # installed programs checker.                                            
 prog_validator()
 {
-check=$(git --version)
+check=$(git --version);
 if [[ "$check" == *"version"* ]];
 then
     git_stat="-INSTALLED-"
 else
     git_stat="-NOT FOUND-"
 fi
-check=$(betty --version)
+check=$(betty --version);
 if [[ "$check" == *"version"* ]];
 then
     betty_stat="-INSTALLED-"
@@ -50,7 +50,7 @@ fi
 # Betty "C" code style install proccess.                                            
 install_betty()
 {
-    git clone https://github.com/holbertonschool/Betty.git
+    git clone https://github.com/holbertonschool/Betty.git;
     sleep 5;
     echo 'preparing for installation proccess. wait !';
     sleep 2;
@@ -79,9 +79,9 @@ install_betty()
 	chmod a+x $file;
 	rm -r Betty;
 	sudo mv $file /bin/;
-	echo "******************"
-	echo "betty installed OK"
-	echo "******************"
+	echo "******************";
+	echo "betty installed OK";
+	echo "******************";
 }
 
 # ------------------------------------------
@@ -91,7 +91,7 @@ prog_validator;
 prompt;
 sleep 1;
 echo '1. Install Betty "C" code style validator ? (y/n)';
-read var1
+read -r var1;
 if [ "$var1" == "y" ];
 then
 	install_betty;
