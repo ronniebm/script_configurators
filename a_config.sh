@@ -46,8 +46,44 @@ else
 fi
 }
 
+# Betty "C" code style install proccess.                                            
+install_betty()
+{
+    git clone https://github.com/holbertonschool/Betty.git
+    sleep 5;
+    echo 'preparing for installation proccess. wait !';
+    sleep 2;
+    sudo Betty/install.sh;
+	file="betty"
+	echo "#!/bin/bash" > $file;
+	echo "# Simply a wrapper script to keep you from having to use betty-style" >> $file;
+	echo "# and betty-doc separately on every item." >> $file;
+	echo "# Originally by Tim Britton (@wintermanc3r), multiargument added by" >> $file;
+	echo "# Larry Madeo (@hillmonkey)" >> $file;
+	echo "" >> $file;
+	echo "BIN_PATH=\"/usr/local/bin\"" >> $file;
+	echo "BETTY_STYLE=\"betty-style\"" >> $file;
+	echo "BETTY_DOC=\"betty-doc\"" >> $file;
+	echo "" >> $file;
+	echo "if [ \"\$#\" = \"0\" ]; then" >> $file;
+	echo "    echo \"No arguments passed.\"" >> $file;
+	echo "    exit 1" >> $file;
+	echo "fi" >> $file;
+	echo "" >> $file;
+	echo "for argument in \"\$@\" ; do" >> $file;
+	echo "    echo -e \"\n========== \$argument ==========\"" >> $file;
+	echo "    \${BIN_PATH}/\${BETTY_STYLE} \"\$argument\"" >> $file;
+	echo "    \${BIN_PATH}/\${BETTY_DOC} \"\$argument\"" >> $file;
+	echo "done" >> $file;
+	chmod a+x $file
+	sudo mv $file /bin/
+	echo "******************"
+	echo "betty installed OK"
+	echo "******************"
+}
 
-# mainp program of the script (entry point).
+# ------------------------------------------
+# main program of the script (entry point).
 # ------------------------------------------
 clear;
 prog_validator;
@@ -57,5 +93,5 @@ echo '1. Install Betty "C" code style validator ? (y/n)';
 read var1
 if [ "$var1" == "y" ];
 then
-    echo you choose option y.
+	install_betty;
 fi
