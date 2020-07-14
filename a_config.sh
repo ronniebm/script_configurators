@@ -50,8 +50,8 @@ fi
 # Betty "C" code style install proccess.                                            
 install_betty()
 {
-    git clone https://github.com/holbertonschool/Betty.git;
-    sleep 5;
+	git clone https://github.com/holbertonschool/Betty.git;
+	sleep 5;
 	echo '*******************************************';
 	echo 'preparing for installation proccess. wait !';
 	echo '*******************************************';
