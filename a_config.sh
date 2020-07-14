@@ -52,7 +52,9 @@ install_betty()
 {
     git clone https://github.com/holbertonschool/Betty.git;
     sleep 5;
+	echo '*******************************************';
     echo 'preparing for installation proccess. wait !';
+	echo '*******************************************';
     sleep 2;
     sudo Betty/install.sh;
 	file="betty"
