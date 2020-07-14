@@ -9,6 +9,7 @@
 # user prompt message.
 prompt()
 {
+clear;
 echo '*********************************************************';
 echo '*   My personal configurator v1.0 (by Ronnie B.M.)      *';
 echo '* ===================================================== *';
@@ -86,7 +87,6 @@ install_betty()
 # ------------------------------------------
 # main program of the script (entry point).
 # ------------------------------------------
-clear;
 prog_validator;
 prompt;
 sleep 1;
@@ -96,3 +96,4 @@ if [ "$var1" == "y" ];
 then
 	install_betty;
 fi
+prompt;
