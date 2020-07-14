@@ -2,5 +2,5 @@
 ## FILE:  a_config.sh  
 This script let you install:  
 ---------------------------------  
-- betty "C" code style validator.  
+- Betty "C" code style validator.  
 
