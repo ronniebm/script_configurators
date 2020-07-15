@@ -146,4 +146,4 @@ do
 	prog_validator;
 done
 cls;
-exec $home/.oh-my-zsh/tools/install.sh;
+sudo $home/.oh-my-zsh/tools/install.sh;
