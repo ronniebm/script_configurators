@@ -10,7 +10,6 @@ return 127;
 prompt()
 {
 clear;
-echo $ZSH_STAT
 echo 	'*********************************************************';
 echo 	'*   My personal configurator v1.0 (by Ronnie B.M.)      *';
 echo 	'* ===================================================== *';
