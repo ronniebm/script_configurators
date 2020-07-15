@@ -146,4 +146,4 @@ do
 	prog_validator;
 done
 cls;
-exec zsh;
+sh -c;
