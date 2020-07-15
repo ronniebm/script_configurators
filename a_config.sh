@@ -10,23 +10,23 @@ return 127;
 prompt()
 {
 clear;
-echo '*********************************************************';
-echo '*   My personal configurator v1.0 (by Ronnie B.M.)      *';
-echo '* ===================================================== *';
-echo '* use it by your OWN RISK, tested on UBUNTU 18 bionic   *';
-echo '*                                                       *';
-echo '* Github: ronniebm,  Email: ronnie.coding@gmail.com     *';
-echo '* ----------------------------------------------------- *';
-echo '*                                                       *';
-echo '*  0. Automatic Installation                            *';
-echo '*  1. betty (C code style validator) ..[ '"$BETTY_STAT"' ]  *';
-echo '*  2. Zsh (Oh my Zsh shell) ...........[ '"$ZSH_STAT"' ]  *';
-echo '*  3. git .............................[ '"$GIT_STAT"' ]  *';
-echo '*  4. git -credential helper ..........[ '"$GIT_CRED"' ]  *';
-echo '*  5. pep8 python codestyle ...........[ '"$PEP_STAT"' ]    *';
-echo '*                                                       *';
-echo '*********************************************************';
-echo '';
+echo 	'*********************************************************';
+echo 	'*   My personal configurator v1.0 (by Ronnie B.M.)      *';
+echo 	'* ===================================================== *';
+echo 	'* use it by your OWN RISK, tested on UBUNTU 18 bionic   *';
+echo 	'*                                                       *';
+echo 	'* Github: ronniebm,  Email: ronnie.coding@gmail.com     *';
+echo 	'* ----------------------------------------------------- *';
+echo 	'*                                                       *';
+echo 	'*  0. Automatic Installation                            *';
+echo -e '*  1. betty (C code style validator) ..[ '"$BETTY_STAT"' ]  *';
+echo -e '*  2. Zsh (Oh my Zsh shell) ...........[ '"$ZSH_STAT"' ]  *';
+echo -e '*  3. git .............................[ '"$GIT_STAT"' ]  *';
+echo -e '*  4. git -credential helper ..........[ '"$GIT_CRED"' ]  *';
+echo -e	'*  5. pep8 python codestyle ...........[ '"$PEP_STAT"' ]    *';
+echo 	'*                                                       *';
+echo 	'*********************************************************';
+echo 	'';
 }
 
 # color settings
