@@ -124,6 +124,7 @@ install_betty()
 # ------------------------------------------
 ENDING="n";
 
+prog_validator;
 while [ $ENDING == "n" ];
 do
 	prompt;
