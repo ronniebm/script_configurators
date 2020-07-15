@@ -127,14 +127,14 @@ do
 #	elif [ "$GIT_CRED" == "-NOT FOUND-" ];
 #		then
 #			echo "GIT CREDENTIAL HELPER NOT FOUND"
-	
+
 	else
 		echo " Dear user, all the TOOLS are already installed.";
 		echo "                                                ";
 		echo " Do you want to EXIT ? (y/n)                    ";
 		read -r ENDING
 	fi
-prog_validator;
+	prog_validator;
 done
 echo '                                                         ';
 echo '*********************************************************';
