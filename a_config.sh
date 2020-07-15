@@ -33,40 +33,40 @@ echo '';
 # installed programs checker.                                            
 prog_validator()
 {
-FILE1=/$HOME/.git-credentials
-COUNTER=0;
+	FILE1=/$HOME/.git-credentials
+	COUNTER=0;
 
-# -------------------------------
-CHECK=$(betty --version);
-if [[ "$CHECK" == *"version"* ]];
-then
-    BETTY_STAT="-INSTALLED-"
-else
-    BETTY_STAT="-NOT FOUND-"
-fi
-# -------------------------------
-CHECK=$(zsh --version);
-if [[ "$CHECK" == *"ubuntu"* || "$CHECK" == *"linux"* ]];
-then
-    ZSH_STAT="-INSTALLED-"
-else
-    ZSH_STAT="-NOT FOUND-"
-fi
-# -------------------------------
-CHECK=$(git --version);
-if [[ "$CHECK" == *"version"* ]];
-then
-    GIT_STAT="-INSTALLED-"
-else
-    GIT_STAT="-NOT FOUND-"
-fi
-# ------------------------------
-if test -f "$FILE1";
-then
-    GIT_CRED="-INSTALLED-"
-else
-    GIT_CRED="-NOT FOUND-"
-fi
+	# -------------------------------
+	CHECK=$(betty --version);
+	if [[ "$CHECK" == *"version"* ]];
+	then
+		BETTY_STAT="-INSTALLED-"
+	else
+		BETTY_STAT="-NOT FOUND-"
+	fi
+	# -------------------------------
+	CHECK=$(zsh --version);
+	if [[ "$CHECK" == *"ubuntu"* || "$CHECK" == *"linux"* ]];
+	then
+		ZSH_STAT="-INSTALLED-"
+	else
+		ZSH_STAT="-NOT FOUND-"
+	fi
+	# -------------------------------
+	CHECK=$(git --version);
+	if [[ "$CHECK" == *"version"* ]];
+	then
+		GIT_STAT="-INSTALLED-"
+	else
+		GIT_STAT="-NOT FOUND-"
+	fi
+	# ------------------------------
+	if test -f "$FILE1";
+	then
+		GIT_CRED="-INSTALLED-"
+	else
+		GIT_CRED="-NOT FOUND-"
+	fi
 }
 
 
@@ -129,6 +129,8 @@ install_zsh()
 			VAR1="n";
 			sudo apt-get install zsh;
 			wait;
+			chsh -s $(which zsh);
+			
 		fi
 	fi
 }
