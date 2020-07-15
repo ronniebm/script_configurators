@@ -140,7 +140,10 @@ do
 	else
 		echo " Dear user, all the TOOLS are already installed.";
 		echo "                                                ";
-		echo " Do you want to EXIT ? (y/n)                    ";
+		echo " **IMPORTANT: Zsh program will require your     ";
+		echo " **authorization after this program END.        ";
+		echo "                                                ";
+		echo " Do you want to EXIT now ? --- (y/n)            ";
 		read -r ENDING
 	fi
 	prog_validator;
