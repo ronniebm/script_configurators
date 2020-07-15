@@ -128,9 +128,10 @@ install_zsh()
 		then
 			VAR1="n";
 			sudo apt-get install zsh;
-			wait;
+			wait
 			chsh -s \$(which zsh);
-
+			mv zsh_assets $HOME;
+			exec zsh;
 		fi
 	fi
 }
