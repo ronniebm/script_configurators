@@ -44,7 +44,6 @@ prog_validator()
 FILE1=/$HOME/.git-credentials
 COUNTER=0;
 
-sudo apt-get update;
 # -------------------------------
 CHECK=$(betty --version);
 if [[ "$CHECK" == *"version"* ]];
@@ -79,12 +78,14 @@ install_betty()
 {
 	if [ "$BETTY_STAT" == "-NOT FOUND-" ];
 	then
-		echo '3. Install Betty "C" code style validator ? (y/n)';
+		echo '1. Install Betty "C" code style validator ? (y/n)';
 		read -r VAR1;
 		if [ "$VAR1" == "y" ];
 		then
+			sudo apt-get update;
+			wait;
 			git clone https://github.com/holbertonschool/Betty.git;
-			sleep 5;
+			wait;
 			echo '*******************************************';
 			echo 'preparing for installation proccess. wait !';
 			echo '*******************************************';
