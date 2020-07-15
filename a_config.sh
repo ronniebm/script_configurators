@@ -133,7 +133,7 @@ prog_validator;
 while [ $ENDING == "n" ];
 do
 	prompt;
-	if [ "$BETTY_STAT" == *"-NOT FOUND-"* ];
+	if [ "$BETTY_STAT" == "\033[0;31m-NOT FOUND-\033[0m" ];
 	then
 		install_betty;
 
