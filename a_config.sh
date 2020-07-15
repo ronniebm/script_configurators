@@ -26,15 +26,6 @@ echo '*  4. pep8 python codestyle ...........[ '"$PEP_STAT"' ]    *';
 echo '*                                                       *';
 echo '*********************************************************';
 echo '';
-if [[ "$COUNTER" -ge 2 ]];
-then
-	echo " Dear user, all the TOOLS are already installed.";
-	echo "                                                ";
-	echo " Do you want to EXIT ? (y/n)                    ";
-	read -r ENDING
-else
-	prog_validator;
-fi
 }
 
 
@@ -49,7 +40,6 @@ CHECK=$(betty --version);
 if [[ "$CHECK" == *"version"* ]];
 then
     BETTY_STAT="-INSTALLED-"
-	COUNTER=$((COUNTER + 1))
 else
     BETTY_STAT="-NOT FOUND-"
 fi
@@ -58,7 +48,6 @@ CHECK=$(git --version);
 if [[ "$CHECK" == *"version"* ]];
 then
     GIT_STAT="-INSTALLED-"
-	COUNTER=$((COUNTER + 1))
 else
     GIT_STAT="-NOT FOUND-"
 fi
@@ -66,7 +55,6 @@ fi
 if test -f "$FILE1";
 then
     GIT_CRED="-INSTALLED-"
-	COUNTER=$((COUNTER + 1))
 else
     GIT_CRED="-NOT FOUND-"
 fi
@@ -128,7 +116,24 @@ prog_validator;
 while [ $ENDING == "n" ];
 do
 	prompt;
-	install_betty;
+	if [ "$BETTY_STAT" == "-NOT FOUND-" ];
+	then
+		install_betty;
+
+	elif [ "$GIT_STAT" == "-NOT FOUND-" ];
+	then
+		echo "GIT HUB NOT FOUND"
+
+	elif [ "$GIT_CRED" == "-NOT FOUND-" ];
+		then
+			echo "GIT CREDENTIAL HELPER NOT FOUND"
+	
+	else
+		echo " Dear user, all the TOOLS are already installed.";
+		echo "                                                ";
+		echo " Do you want to EXIT ? (y/n)                    ";
+		read -r ENDING
+	fi
 done
 echo '                                                         ';
 echo '*********************************************************';
