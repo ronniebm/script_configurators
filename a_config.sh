@@ -51,32 +51,32 @@ prog_validator()
 	CHECK=$(betty --version);
 	if [[ "$CHECK" == *"version"* ]];
 	then
-		BETTY_STAT="${GREEN}-INSTALLED-${NC}"
+		BETTY_STAT="${GREEN} -INSTALLED- ${NC}"
 	else
-		BETTY_STAT="${RED}-NOT FOUND-${NC}"
+		BETTY_STAT="${RED} -NOT FOUND- ${NC}"
 	fi
 	# -------------------------------
 	CHECK=$(zsh --version);
 	if [[ "$CHECK" == *"ubuntu"* || "$CHECK" == *"linux"* ]];
 	then
-		ZSH_STAT="${GREEN}-INSTALLED-${NC}"
+		ZSH_STAT="${GREEN} -INSTALLED- ${NC}"
 	else
-		ZSH_STAT="${RED}-NOT FOUND-${NC}"
+		ZSH_STAT="${RED} -NOT FOUND- ${NC}"
 	fi
 	# -------------------------------
 	CHECK=$(git --version);
 	if [[ "$CHECK" == *"version"* ]];
 	then
-		GIT_STAT="${GREEN}-INSTALLED-${NC}"
+		GIT_STAT="${GREEN} -INSTALLED- ${NC}"
 	else
-		GIT_STAT="${RED}-NOT FOUND-${NC}"
+		GIT_STAT="${RED} -NOT FOUND- ${NC}"
 	fi
 	# ------------------------------
 	if test -f "$FILE1";
 	then
-		GIT_CRED="${GREEN}-INSTALLED-${NC}"
+		GIT_CRED="${GREEN} -INSTALLED- ${NC}"
 	else
-		GIT_CRED="${RED}-NOT FOUND-${NC}"
+		GIT_CRED="${RED} -NOT FOUND- ${NC}"
 	fi
 }
 
