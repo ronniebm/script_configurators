@@ -131,6 +131,10 @@ install_zsh()
 			wait
 			chsh -s $(which zsh);
 			mv zsh_assets $HOME;
+			clear;
+			echo "**************************************";
+			echo    Zsh Shell successfully Activated !
+			echo "**************************************"
 			exec zsh;
 		fi
 	fi
