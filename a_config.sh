@@ -10,6 +10,7 @@ return 127;
 prompt()
 {
 clear;
+echo $ZSH_STAT
 echo 	'*********************************************************';
 echo 	'*   My personal configurator v1.0 (by Ronnie B.M.)      *';
 echo 	'* ===================================================== *';
@@ -104,7 +105,7 @@ install_betty()
 # 2. Zsh Oh My ZSH shell.                                            
 install_zsh()
 {
-	if [ "$ZSH_STAT" == "-NOT FOUND-" ]; then
+	if [ "$ZSH_STAT" == *"-NOT FOUND-"* ]; then
 		echo '2. Install Zsh (Oh my Zsh shell) ? (y/n)';
 		read -r VAR1;
 		if [ "$VAR1" == "y" ]; then
@@ -129,30 +130,29 @@ install_zsh()
 ENDING="n";
 color_settings;
 prog_validator;
-
 while [ $ENDING == "n" ];
 do
 	prompt;
-	if [ "$BETTY_STAT" == "${RED}-NOT FOUND-${NC}" ];
+	if [ "$BETTY_STAT" == *"-NOT FOUND-"* ];
 	then
 		install_betty;
 
-	elif [ "$ZSH_STAT" == "${RED}-NOT FOUND-${NC}" ];
+	elif [ "$ZSH_STAT" == *"-NOT FOUND-"* ];
 	then
 		install_zsh;
 
-#	elif [ "$GIT_CRED" == "${RED}-NOT FOUND-${NC}" ];
+#	elif [ "$GIT_CRED" == "\033[0;31m-NOT FOUND-\033[0m" ];
 #		then
 #			echo "GIT CREDENTIAL HELPER NOT FOUND"
 
 	else
-		echo " Dear user, all the TOOLS are already installed.";
-		echo "                                                ";
-		echo " **IMPORTANT: Zsh program will require your     ";
-		echo " **authorization after this program END.        ";
-		echo "                                                ";
-		echo " Do you want to EXIT now ? --- (y/n)            ";
-		echo " ---------------------------------------------- ";
+		echo " Dear user, all the TOOLS are already installed.         ";
+		echo "                                                         ";
+		echo " **IMPORTANT: Zsh program will require your              ";
+		echo " **authorization after this program END.                 ";
+		echo "                                                         ";
+		echo " Do you want to EXIT now ? --- (y/n)                     ";
+		echo "*********************************************************";
 		read -r ENDING
 	fi
 	prog_validator;
