@@ -130,8 +130,8 @@ install_zsh()
 			sudo apt-get install zsh;
 			wait
 			chsh -s $(which zsh);
-			mv zsh_assets/.p10k.zsh $HOME;
-			mv zsh_assets/.zshrc $HOME;
+			cp zsh_assets/.p10k.zsh $HOME;
+			cp zsh_assets/.zshrc $HOME;
 			clear;
 			echo "**************************************";
 			echo    Zsh Shell successfully Activated !
