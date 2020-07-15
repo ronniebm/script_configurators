@@ -19,14 +19,14 @@ echo '* Github: ronniebm,  Email: ronnie.coding@gmail.com     *';
 echo '* ----------------------------------------------------- *';
 echo '*                                                       *';
 echo '*  0. Automatic Installation                            *';
-echo '*  1. gitHub ..........................[ '"$GIT_STAT"' ]  *';
-echo '*  2. github -credential helper........[ '"$GIT_CRED"' ]  *';
-echo '*  3. betty (C code style validator) ..[ '"$BETTY_STAT"' ]  *';
+echo '*  1. betty (C code style validator) ..[ '"$BETTY_STAT"' ]  *';
+echo '*  2. gitHub ..........................[ '"$GIT_STAT"' ]  *';
+echo '*  3. github -credential helper........[ '"$GIT_CRED"' ]  *';
 echo '*  4. pep8 python codestyle ...........[ '"$PEP_STAT"' ]    *';
 echo '*                                                       *';
 echo '*********************************************************';
 echo '';
-if [ "$COUNTER" == 2 ];
+if [ "$COUNTER" == 1 ];
 then
 	echo " Dear user, all the TOOLS are already installed.";
 	echo "                                                ";
@@ -41,17 +41,10 @@ fi
 # installed programs checker.                                            
 prog_validator()
 {
+FILE1=/$HOME/.git-credentials
 COUNTER=0;
+
 sudo apt-get update;
-# -------------------------------
-CHECK=$(git --version);
-if [[ "$CHECK" == *"version"* ]];
-then
-    GIT_STAT="-INSTALLED-"
-	COUNTER=$((COUNTER + 1))
-else
-    GIT_STAT="-NOT FOUND-"
-fi
 # -------------------------------
 CHECK=$(betty --version);
 if [[ "$CHECK" == *"version"* ]];
@@ -61,9 +54,17 @@ then
 else
     BETTY_STAT="-NOT FOUND-"
 fi
+# -------------------------------
+CHECK=$(git --version);
+if [[ "$CHECK" == *"version"* ]];
+then
+    GIT_STAT="-INSTALLED-"
+	COUNTER=$((COUNTER + 1))
+else
+    GIT_STAT="-NOT FOUND-"
+fi
 # ------------------------------
-FILE=/$HOME/.git-credentials
-if test -f "$FILE";
+if test -f "$FILE1";
 then
     GIT_CRED="-INSTALLED-"
 	COUNTER=$((COUNTER + 1))
@@ -73,7 +74,7 @@ fi
 }
 
 
-# 3. Betty "C" code style install proccess.                                            
+# 1. Betty "C" code style install proccess.                                            
 install_betty()
 {
 	if [ "$BETTY_STAT" == "-NOT FOUND-" ];
@@ -127,7 +128,7 @@ do
 	prompt;
 	install_betty;
 done
-echo '*                                                       *';
+echo '                                                         ';
 echo '*********************************************************';
 echo '*                  PROGRAM FINISHED !                   *';
 echo '*********************************************************';
