@@ -130,6 +130,7 @@ install_zsh()
 ENDING="n";
 color_settings;
 prog_validator;
+
 while [ $ENDING == "n" ];
 do
 	prompt;
@@ -137,7 +138,7 @@ do
 	then
 		install_betty;
 
-	elif [ "$ZSH_STAT" == "\033[0;31m-NOT FOUND-\033[0m" ];
+	elif [ "$ZSH_STAT" == *"-NOT FOUND-"* ];
 	then
 		install_zsh;
 
