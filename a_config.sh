@@ -120,13 +120,13 @@ do
 	then
 		install_betty;
 
-	elif [ "$GIT_STAT" == "-NOT FOUND-" ];
-	then
-		echo "GIT HUB NOT FOUND"
+#	elif [ "$GIT_STAT" == "-NOT FOUND-" ];
+#	then
+#		echo "GIT HUB NOT FOUND"
 
-	elif [ "$GIT_CRED" == "-NOT FOUND-" ];
-		then
-			echo "GIT CREDENTIAL HELPER NOT FOUND"
+#	elif [ "$GIT_CRED" == "-NOT FOUND-" ];
+#		then
+#			echo "GIT CREDENTIAL HELPER NOT FOUND"
 	
 	else
 		echo " Dear user, all the TOOLS are already installed.";
@@ -134,6 +134,7 @@ do
 		echo " Do you want to EXIT ? (y/n)                    ";
 		read -r ENDING
 	fi
+prog_validator;
 done
 echo '                                                         ';
 echo '*********************************************************';
