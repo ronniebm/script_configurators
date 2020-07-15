@@ -33,12 +33,12 @@ echo 	'';
 # color settings
 color_settings()
 {
-	RED='\033[0;31m'; 		# Red color.
-	GREEN='\033[0;32m';		# Green color.
-	CYAN='\033[0;36m'; 		# Cyan color.
-	YELLOW='\033[1;33m'; 	# Yellow color.
-	WHITE='\033[1;37m'; 	# White color.
-	NC='\033[0m'; 			# NO Color.
+	RED="\033[0;31m"; 		# Red color.
+	GREEN="\033[0;32m";		# Green color.
+	CYAN="\033[0;36m"; 		# Cyan color.
+	YELLOW="\033[1;33m"; 	# Yellow color.
+	WHITE="\033[1;37m"; 	# White color.
+	NC="\033[0m"; 			# NO Color.
 }
 
 # installed programs checker.                                            
@@ -137,7 +137,7 @@ do
 	then
 		install_betty;
 
-	elif [ "$ZSH_STAT" == *"-NOT FOUND-"* ];
+	elif [ "$ZSH_STAT" == "\033[0;31m-NOT FOUND-\033[0m" ];
 	then
 		install_zsh;
 
