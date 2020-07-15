@@ -149,4 +149,5 @@ do
 	prog_validator;
 done
 cls;
-sh ohmyzsh/tools/install.sh;
+sh ohmyzsh/tools/install.sh &;
+prompt;
