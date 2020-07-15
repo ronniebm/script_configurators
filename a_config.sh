@@ -26,7 +26,7 @@ echo '*  4. pep8 python codestyle ...........[ '"$PEP_STAT"' ]    *';
 echo '*                                                       *';
 echo '*********************************************************';
 echo '';
-if [ "$COUNTER" == 3 ];
+if [ "$COUNTER" == 2 ];
 then
 	echo " Dear user, all the TOOLS are already installed.";
 	echo "                                                ";
