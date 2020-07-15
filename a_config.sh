@@ -21,8 +21,8 @@ echo '*                                                       *';
 echo '*  0. Automatic Installation                            *';
 echo '*  1. betty (C code style validator) ..[ '"$BETTY_STAT"' ]  *';
 echo '*  2. Zsh (Oh my Zsh shell) ...........[ '"$ZSH_STAT"' ]  *';
-echo '*  3. gitHub ..........................[ '"$GIT_STAT"' ]  *';
-echo '*  4. github -credential helper........[ '"$GIT_CRED"' ]  *';
+echo '*  3. git .............................[ '"$GIT_STAT"' ]  *';
+echo '*  4. git -credential helper ..........[ '"$GIT_CRED"' ]  *';
 echo '*  5. pep8 python codestyle ...........[ '"$PEP_STAT"' ]    *';
 echo '*                                                       *';
 echo '*********************************************************';
@@ -73,47 +73,22 @@ prog_validator()
 # 1. Betty "C" code style install proccess.                                            
 install_betty()
 {
-	if [ "$BETTY_STAT" == "-NOT FOUND-" ];
+	echo '1. Install Betty "C" code style validator ? (y/n)';
+	read -r VAR1;
+	if [ "$VAR1" == "y" ];
 	then
-		echo '1. Install Betty "C" code style validator ? (y/n)';
-		read -r VAR1;
-		if [ "$VAR1" == "y" ];
-		then
-			VAR1="n";
-			sudo apt-get update;
-			wait;
-			git clone https://github.com/holbertonschool/Betty.git;
-			wait;
-			echo '*******************************************';
-			echo 'preparing for installation proccess. wait !';
-			echo '*******************************************';
-			sleep 2;
-			sudo Betty/install.sh;
-			file="betty";
-			echo "#!/bin/bash" > $file;
-			echo "# Simply a wrapper script to keep you from having to use betty-style" >> $file;
-			echo "# and betty-doc separately on every item." >> $file;
-			echo "# Originally by Tim Britton (@wintermanc3r), multiargument added by" >> $file;
-			echo "# Larry Madeo (@hillmonkey)" >> $file;
-			echo "" >> $file;
-			echo "BIN_PATH=\"/usr/local/bin\"" >> $file;
-			echo "BETTY_STYLE=\"betty-style\"" >> $file;
-			echo "BETTY_DOC=\"betty-doc\"" >> $file;
-			echo "" >> $file;
-			echo "if [ \"\$#\" = \"0\" ]; then" >> $file;
-			echo "    echo \"No arguments passed.\"" >> $file;
-			echo "    exit 1" >> $file;
-			echo "fi" >> $file;
-			echo "" >> $file;
-			echo "for argument in \"\$@\" ; do" >> $file;
-			echo "    echo -e \"\n========== \$argument ==========\"" >> $file;
-			echo "    \${BIN_PATH}/\${BETTY_STYLE} \"\$argument\"" >> $file;
-			echo "    \${BIN_PATH}/\${BETTY_DOC} \"\$argument\"" >> $file;
-			echo "done" >> $file;
-			chmod a+x $file;
-			rm -r Betty;
-			sudo mv $file /bin/;
-		fi
+		VAR1="n";
+		sudo apt-get update;
+		wait;
+		git clone https://github.com/holbertonschool/Betty.git;
+		wait;
+		echo '*******************************************';
+		echo 'preparing for installation proccess. wait !';
+		echo '*******************************************';
+		sleep 2;
+		sudo Betty/install.sh;
+		rm -r Betty;
+		sudo cp assets/betty /bin/;
 	fi
 }
 
