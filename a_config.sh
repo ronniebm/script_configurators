@@ -18,84 +18,115 @@ echo '*                                                       *';
 echo '* Github: ronniebm,  Email: ronnie.coding@gmail.com     *';
 echo '* ----------------------------------------------------- *';
 echo '*                                                       *';
-echo '*  1. gitHub ..........................[ '"$git_stat"' ]  *';
-echo '*  2. github -credential helper........[ '"$git_cred"' ]  *';
-echo '*  2. betty (C code style validator) ..[ '"$betty_stat"' ]  *';
-echo '*  3. pep8 python codestyle ...........[ $pep_stat ]    *';
-echo '*  4. INSTALL ALL                                       *';
+echo '*  0. Automatic Installation                            *';
+echo '*  1. gitHub ..........................[ '"$GIT_STAT"' ]  *';
+echo '*  2. github -credential helper........[ '"$GIT_CRED"' ]  *';
+echo '*  3. betty (C code style validator) ..[ '"$BETTY_STAT"' ]  *';
+echo '*  4. pep8 python codestyle ...........[ '"$PEP_STAT"' ]    *';
 echo '*                                                       *';
 echo '*********************************************************';
 echo '';
+if [ "$COUNTER" == 3 ];
+then
+	echo " Dear user, all the TOOLS are already installed.";
+	echo "                                                ";
+	echo " Do you want to EXIT ? (y/n)                    ";
+	read -r ENDING
+fi
 }
+
 
 # installed programs checker.                                            
 prog_validator()
 {
-check=$(git --version);
-if [[ "$check" == *"version"* ]];
+COUNTER=0;
+sudo apt-get update;
+# -------------------------------
+CHECK=$(git --version);
+if [[ "$CHECK" == *"version"* ]];
 then
-    git_stat="-INSTALLED-"
+    GIT_STAT="-INSTALLED-"
+	COUNTER=$((COUNTER + 1))
 else
-    git_stat="-NOT FOUND-"
+    GIT_STAT="-NOT FOUND-"
 fi
-check=$(betty --version);
-if [[ "$check" == *"version"* ]];
+# -------------------------------
+CHECK=$(betty --version);
+if [[ "$CHECK" == *"version"* ]];
 then
-    betty_stat="-INSTALLED-"
+    BETTY_STAT="-INSTALLED-"
+	COUNTER=$((COUNTER + 1))
 else
-    betty_stat="-NOT FOUND-"
+    BETTY_STAT="-NOT FOUND-"
+fi
+# ------------------------------
+FILE=/$HOME/.git-credentials
+if test -f "$FILE";
+then
+    GIT_CRED="-INSTALLED-"
+	COUNTER=$((COUNTER + 1))
+else
+    GIT_CRED="-NOT FOUND-"
 fi
 }
 
-# Betty "C" code style install proccess.                                            
+
+# 3. Betty "C" code style install proccess.                                            
 install_betty()
 {
-	git clone https://github.com/holbertonschool/Betty.git;
-	sleep 5;
-	echo '*******************************************';
-	echo 'preparing for installation proccess. wait !';
-	echo '*******************************************';
-	sleep 2;
-	sudo Betty/install.sh;
-	file="betty";
-	echo "#!/bin/bash" > $file;
-	echo "# Simply a wrapper script to keep you from having to use betty-style" >> $file;
-	echo "# and betty-doc separately on every item." >> $file;
-	echo "# Originally by Tim Britton (@wintermanc3r), multiargument added by" >> $file;
-	echo "# Larry Madeo (@hillmonkey)" >> $file;
-	echo "" >> $file;
-	echo "BIN_PATH=\"/usr/local/bin\"" >> $file;
-	echo "BETTY_STYLE=\"betty-style\"" >> $file;
-	echo "BETTY_DOC=\"betty-doc\"" >> $file;
-	echo "" >> $file;
-	echo "if [ \"\$#\" = \"0\" ]; then" >> $file;
-	echo "    echo \"No arguments passed.\"" >> $file;
-	echo "    exit 1" >> $file;
-	echo "fi" >> $file;
-	echo "" >> $file;
-	echo "for argument in \"\$@\" ; do" >> $file;
-	echo "    echo -e \"\n========== \$argument ==========\"" >> $file;
-	echo "    \${BIN_PATH}/\${BETTY_STYLE} \"\$argument\"" >> $file;
-	echo "    \${BIN_PATH}/\${BETTY_DOC} \"\$argument\"" >> $file;
-	echo "done" >> $file;
-	chmod a+x $file;
-	rm -r Betty;
-	sudo mv $file /bin/;
-	echo "******************";
-	echo "betty installed OK";
-	echo "******************";
+	if [ "$BETTY_STAT" == "-NOT FOUND-" ];
+	then
+		echo '3. Install Betty "C" code style validator ? (y/n)';
+		read -r VAR1;
+		if [ "$VAR1" == "y" ];
+		then
+			git clone https://github.com/holbertonschool/Betty.git;
+			sleep 5;
+			echo '*******************************************';
+			echo 'preparing for installation proccess. wait !';
+			echo '*******************************************';
+			sleep 2;
+			sudo Betty/install.sh;
+			file="betty";
+			echo "#!/bin/bash" > $file;
+			echo "# Simply a wrapper script to keep you from having to use betty-style" >> $file;
+			echo "# and betty-doc separately on every item." >> $file;
+			echo "# Originally by Tim Britton (@wintermanc3r), multiargument added by" >> $file;
+			echo "# Larry Madeo (@hillmonkey)" >> $file;
+			echo "" >> $file;
+			echo "BIN_PATH=\"/usr/local/bin\"" >> $file;
+			echo "BETTY_STYLE=\"betty-style\"" >> $file;
+			echo "BETTY_DOC=\"betty-doc\"" >> $file;
+			echo "" >> $file;
+			echo "if [ \"\$#\" = \"0\" ]; then" >> $file;
+			echo "    echo \"No arguments passed.\"" >> $file;
+			echo "    exit 1" >> $file;
+			echo "fi" >> $file;
+			echo "" >> $file;
+			echo "for argument in \"\$@\" ; do" >> $file;
+			echo "    echo -e \"\n========== \$argument ==========\"" >> $file;
+			echo "    \${BIN_PATH}/\${BETTY_STYLE} \"\$argument\"" >> $file;
+			echo "    \${BIN_PATH}/\${BETTY_DOC} \"\$argument\"" >> $file;
+			echo "done" >> $file;
+			chmod a+x $file;
+			rm -r Betty;
+			sudo mv $file /bin/;
+		fi
+	fi
 }
 
 # ------------------------------------------
 # main program of the script (entry point).
 # ------------------------------------------
-prog_validator;
-prompt;
-sleep 1;
-echo '1. Install Betty "C" code style validator ? (y/n)';
-read -r var1;
-if [ "$var1" == "y" ];
-then
+ENDING="n";
+
+while [ $ENDING == "n" ];
+do
+	prog_validator;
+	prompt;
 	install_betty;
-fi
-prompt;
+done
+echo '*                                                       *';
+echo '*********************************************************';
+echo '*                  PROGRAM FINISHED !                   *';
+echo '*********************************************************';
