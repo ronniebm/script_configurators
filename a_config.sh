@@ -32,6 +32,8 @@ then
 	echo "                                                ";
 	echo " Do you want to EXIT ? (y/n)                    ";
 	read -r ENDING
+else
+	prog_validator;
 fi
 }
 
@@ -122,7 +124,6 @@ ENDING="n";
 
 while [ $ENDING == "n" ];
 do
-	prog_validator;
 	prompt;
 	install_betty;
 done
