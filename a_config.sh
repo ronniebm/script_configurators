@@ -104,13 +104,14 @@ install_zsh()
 			VAR1="n";
 			sudo apt-get install zsh;
 			wait
-			# chsh -s $(which zsh);
+			curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh;
+			chmod u+x $home/.oh-my-zsh/tools/install.sh
 			# cp zsh_assets/.p10k.zsh $HOME/.;
 			# cp zsh_assets/.zshrc $HOME/.;
 			clear;
 			echo "**************************************";
-			echo    Zsh Shell successfully Activated !
-			echo "**************************************"
+			echo "  Zsh Shell successfully Activated !  ";
+			echo "**************************************";
 		fi
 	fi
 }
@@ -145,4 +146,4 @@ do
 	prog_validator;
 done
 cls;
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)";
+exec $home/.oh-my-zsh/tools/install.sh;
