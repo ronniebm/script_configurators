@@ -61,7 +61,7 @@ prog_validator()
 	then
 		ZSH_STAT="${GREEN} -INSTALLED- ${NC}"
 	else
-		ZSH_STAT="${RED} -NOT FOUND- ${NC}"
+		ZSH_STAT="${RED} NOT FOUND ${NC}"
 	fi
 	# -------------------------------
 	CHECK=$(git --version);
@@ -105,7 +105,7 @@ install_betty()
 # 2. Zsh Oh My ZSH shell.                                            
 install_zsh()
 {
-	if [ "$ZSH_STAT" == *"-NOT FOUND-"* ]; then
+	if [ "$ZSH_STAT" == *"FOUND"* ]; then
 		echo '2. Install Zsh (Oh my Zsh shell) ? (y/n)';
 		read -r VAR1;
 		if [ "$VAR1" == "y" ]; then
