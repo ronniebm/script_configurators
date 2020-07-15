@@ -46,7 +46,7 @@ else
 fi
 # -------------------------------
 CHECK=$(zsh --version);
-if [[ "$CHECK" == *"version"* ]];
+if [[ "$CHECK" == *"ubuntu"* ]];
 then
     ZSH_STAT="-INSTALLED-"
 else
@@ -145,7 +145,7 @@ do
 	if [ "$BETTY_STAT" == "-NOT FOUND-" ];
 	then
 		install_betty;
-	
+
 	elif [ "$ZSH_STAT" == "-NOT FOUND-" ];
 	then
 		install_zsh;
