@@ -129,8 +129,8 @@ install_zsh()
 			VAR1="n";
 			sudo apt-get install zsh;
 			wait;
-			chsh -s $(which zsh);
-			
+			chsh -s \$(which zsh);
+
 		fi
 	fi
 }
