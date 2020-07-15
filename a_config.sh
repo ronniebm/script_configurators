@@ -46,7 +46,7 @@ else
 fi
 # -------------------------------
 CHECK=$(zsh --version);
-if [[ "$CHECK" == *"ubuntu"* ]];
+if [[ "$CHECK" == *"ubuntu"* || "$CHECK" == *"linux"* ]];
 then
     ZSH_STAT="-INSTALLED-"
 else
