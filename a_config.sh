@@ -20,9 +20,10 @@ echo '* ----------------------------------------------------- *';
 echo '*                                                       *';
 echo '*  0. Automatic Installation                            *';
 echo '*  1. betty (C code style validator) ..[ '"$BETTY_STAT"' ]  *';
-echo '*  2. gitHub ..........................[ '"$GIT_STAT"' ]  *';
-echo '*  3. github -credential helper........[ '"$GIT_CRED"' ]  *';
-echo '*  4. pep8 python codestyle ...........[ '"$PEP_STAT"' ]    *';
+echo '*  2. Zsh (Oh my Zsh shell) ...........[ '"$ZSH_STAT"' ]  *';
+echo '*  3. gitHub ..........................[ '"$GIT_STAT"' ]  *';
+echo '*  4. github -credential helper........[ '"$GIT_CRED"' ]  *';
+echo '*  5. pep8 python codestyle ...........[ '"$PEP_STAT"' ]    *';
 echo '*                                                       *';
 echo '*********************************************************';
 echo '';
@@ -42,6 +43,14 @@ then
     BETTY_STAT="-INSTALLED-"
 else
     BETTY_STAT="-NOT FOUND-"
+fi
+# -------------------------------
+CHECK=$(zsh --version);
+if [[ "$CHECK" == *"version"* ]];
+then
+    ZSH_STAT="-INSTALLED-"
+else
+    ZSH_STAT="-NOT FOUND-"
 fi
 # -------------------------------
 CHECK=$(git --version);
@@ -70,6 +79,7 @@ install_betty()
 		read -r VAR1;
 		if [ "$VAR1" == "y" ];
 		then
+			VAR1="n";
 			sudo apt-get update;
 			wait;
 			git clone https://github.com/holbertonschool/Betty.git;
@@ -107,6 +117,22 @@ install_betty()
 	fi
 }
 
+# 2. Zsh Oh My ZSH shell.                                            
+install_zsh()
+{
+	if [ "$ZSH_STAT" == "-NOT FOUND-" ];
+	then
+		echo '2. Install Zsh (Oh my Zsh shell) ? (y/n)';
+		read -r VAR1;
+		if [ "$VAR1" == "y" ];
+		then
+			VAR1="n";
+			sudo apt-get install zsh;
+			wait;
+		fi
+	fi
+}
+
 # ------------------------------------------
 # main program of the script (entry point).
 # ------------------------------------------
@@ -119,10 +145,10 @@ do
 	if [ "$BETTY_STAT" == "-NOT FOUND-" ];
 	then
 		install_betty;
-
-#	elif [ "$GIT_STAT" == "-NOT FOUND-" ];
-#	then
-#		echo "GIT HUB NOT FOUND"
+	
+	elif [ "$ZSH_STAT" == "-NOT FOUND-" ];
+	then
+		install_zsh;
 
 #	elif [ "$GIT_CRED" == "-NOT FOUND-" ];
 #		then
