@@ -20,11 +20,11 @@ echo 	'* Github: ronniebm,  Email: ronnie.coding@gmail.com     *';
 echo 	'* ----------------------------------------------------- *';
 echo 	'*                                                       *';
 echo 	'*  0. Automatic Installation                            *';
-echo -e '*  1. betty (C code style validator) ..[ '"$BETTY_STAT"' ]  *';
-echo -e '*  2. Zsh (Oh my Zsh shell) ...........[ '"$ZSH_STAT"' ]  *';
-echo -e '*  3. git .............................[ '"$GIT_STAT"' ]  *';
-echo -e '*  4. git -credential helper ..........[ '"$GIT_CRED"' ]  *';
-echo -e	'*  5. pep8 python codestyle ...........[ '"$PEP_STAT"' ]    *';
+echo -e '*  1. betty (C code style validator) ..[ '"$BETTY_P"' ]    *';
+echo -e '*  2. Zsh (Oh my Zsh shell) ...........[ '"$ZSH_P"' ]    *';
+echo -e '*  3. gitff ...........................[ '"$GIT_P"' ]    *';
+echo -e '*  4. git -credential helper ..........[ '"$GITCRED_P"' ]    *';
+echo -e	'*  5. pep8 python codestyle ...........[ '"$PEP_P"' ]      *';
 echo 	'*                                                       *';
 echo 	'*********************************************************';
 echo 	'';
@@ -51,32 +51,40 @@ prog_validator()
 	CHECK=$(betty --version);
 	if [[ "$CHECK" == *"version"* ]];
 	then
-		BETTY_STAT="${GREEN} -INSTALLED- ${NC}"
+		BETTY_STAT="INSTALLED";
+		BETTY_P="${GREEN}INSTALLED${NC}";
 	else
-		BETTY_STAT="${RED} -NOT FOUND- ${NC}"
+		BETTY_STAT="NOT FOUND";
+		BETTY_P="${RED}NOT FOUND${NC}";
 	fi
 	# -------------------------------
 	CHECK=$(zsh --version);
 	if [[ "$CHECK" == *"ubuntu"* || "$CHECK" == *"linux"* ]];
 	then
-		ZSH_STAT="${GREEN} -INSTALLED- ${NC}"
+		ZSH_STAT="INSTALLED";
+		ZSH_P="${GREEN}INSTALLED${NC}";
 	else
-		ZSH_STAT="${RED} NOT FOUND ${NC}"
+		ZSH_STAT="NOT FOUND"
+		ZSH_P="${RED}NOT FOUND${NC}"
 	fi
 	# -------------------------------
-	CHECK=$(git --version);
+	CHECK=$(gitff --version);
 	if [[ "$CHECK" == *"version"* ]];
 	then
-		GIT_STAT="${GREEN} -INSTALLED- ${NC}"
+		GIT_STAT="INSTALLED"
+		GIT_P="${GREEN}INSTALLED${NC}"
 	else
-		GIT_STAT="${RED} -NOT FOUND- ${NC}"
+		GIT_STAT="NOT FOUND"
+		GIT_P="${RED}NOT FOUND${NC}"
 	fi
 	# ------------------------------
 	if test -f "$FILE1";
 	then
-		GIT_CRED="${GREEN} -INSTALLED- ${NC}"
+		GITCRED_STAT="INSTALLED"
+		GITCRED_P="${GREEN}INSTALLED${NC}"
 	else
-		GIT_CRED="${RED} -NOT FOUND- ${NC}"
+		GITCRED_STAT="NOT FOUND"
+		GITCRED_P="${RED}NOT FOUND${NC}"
 	fi
 }
 
@@ -105,22 +113,21 @@ install_betty()
 # 2. Zsh Oh My ZSH shell.                                            
 install_zsh()
 {
-	if [ "$ZSH_STAT" == *"FOUND"* ]; then
-		echo '2. Install Zsh (Oh my Zsh shell) ? (y/n)';
-		read -r VAR1;
-		if [ "$VAR1" == "y" ]; then
-			VAR1="n";
-			sudo apt-get update;
-			sudo apt-get install zsh;
-			wait
-			git clone https://github.com/ohmyzsh/ohmyzsh.git;
-			chmod u+x $home/.oh-my-zsh/tools/install.sh
-			clear;
-			echo "**************************************";
-			echo "  Zsh Shell successfully Installed... ";
-			echo "**************************************";
-			sleep 2;
-		fi
+	echo '2. Install Zsh (Oh my Zsh shell) ? (y/n)';
+	read -r VAR1;
+	if [ "$VAR1" == "y" ]; 
+	then
+		VAR1="n";
+		sudo apt-get update;
+		sudo apt-get install zsh;
+		wait
+		git clone https://github.com/ohmyzsh/ohmyzsh.git;
+		chmod u+x $home/.oh-my-zsh/tools/install.sh;
+		clear;
+		echo "**************************************";
+		echo "  Zsh Shell successfully Installed... ";
+		echo "**************************************";
+		sleep 2;
 	fi
 }
 
@@ -134,11 +141,11 @@ prog_validator;
 while [ $ENDING == "n" ];
 do
 	prompt;
-	if [ "$BETTY_STAT" == "\033[0;31m-NOT FOUND-\033[0m" ];
+	if [ "$BETTY_STAT" == "NOT FOUND" ];
 	then
 		install_betty;
 
-	elif [ "$ZSH_STAT" == *"-NOT FOUND-"* ];
+	elif [ "$ZSH_STAT" == "NOT FOUND" ];
 	then
 		install_zsh;
 
