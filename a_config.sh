@@ -23,7 +23,7 @@ echo -e '*  1. betty (C code style validator) ..[ '"$BETTY_P"' ]    *';
 echo -e '*  2. Zsh (Oh my Zsh shell) ...........[ '"$ZSH_P"' ]    *';
 echo -e '*  3. git .............................[ '"$GIT_P"' ]    *';
 echo -e '*  4. git -credential helper ..........[ '"$GITCRED_P"' ]    *';
-echo -e	'*  5. pep8 python codestyle ...........[ '"$PEP_P"' ]      *';
+echo -e	'*  5. shellcheck validator ............[ '"$SHELLCHECK_P"' ]      *';
 echo 	'*                                                       *';
 echo 	'*********************************************************';
 echo 	'';
@@ -84,6 +84,16 @@ prog_validator()
 	else
 		GITCRED_STAT="NOT FOUND"
 		GITCRED_P="${RED}NOT FOUND${NC}"
+	fi
+	# -------------------------------
+	CHECK=$(shellcheck --version);
+	if [[ "$CHECK" == *"version"* ]];
+	then
+		SHELLCHECK_STAT="INSTALLED"
+		SHELLCHECK_P="${GREEN}INSTALLED${NC}"
+	else
+		SHELLCHECK_STAT="NOT FOUND"
+		SHELLCHECK_P="${RED}NOT FOUND${NC}"
 	fi
 }
 
@@ -187,6 +197,24 @@ install_git_credentials()
 	fi
 }
 
+install_shellcheck()
+{
+	echo '3. Install shellcheck script validator ? (y/n)';
+	read -r VAR1;
+	if [ "$VAR1" == "y" ]; 
+	then
+		VAR1="n";
+		sudo apt-get update;
+		sudo apt-get install shellcheck;
+		wait;
+		clear;
+		echo "**************************************";
+		echo " shellcheck successfully Installing...";
+		echo "**************************************";
+		sleep 2;
+	fi
+}
+
 # -----------------------------------------
 # main program of the script (entry point).
 # -----------------------------------------
@@ -212,6 +240,10 @@ do
 	elif [ "$GITCRED_STAT" == "NOT FOUND" ];
 	then
 		install_git_credentials;
+
+	elif [ "$SHELLCHECK_STAT" == "NOT FOUND" ];
+		then
+			install_shellcheck;
 
 	else
 		echo 	" Dear user, all the TOOLS are already installed.         ";
