@@ -11,5 +11,5 @@ This script let you install:
   
 ---------------------------------  
 Author: Ronnie Barrios.  
-Email: ronnie.coding@gmail.com.
+Email: ronnie.coding@gmail.com  
 github: ronniebm.
