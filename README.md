@@ -4,10 +4,10 @@
 ---------------------------------
 This script let you install:  
 
-     - Betty "C" code style validator.  
-     - Zsh (Oh my Zsh shell).  
-     - git.  
-     - git credential helper.  
+     1. Betty "C" code style validator.  
+     2. Zsh (Oh my Zsh shell).  
+     3. git.  
+     4. git credential helper.  
   
 ---------------------------------  
 Author: Ronnie Barrios.  
