@@ -9,4 +9,5 @@ This script let you install:
      - git credential helper.  
   
 ---------------------------------  
-
+Author: Ronnie Barrios.  
+Email: ronnie.coding@gmail.com  
