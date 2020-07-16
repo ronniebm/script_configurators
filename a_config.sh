@@ -194,6 +194,10 @@ do
 	then
 		install_git;
 
+	elif [ "$GITCRED_STAT" == "NOT FOUND" ];
+	then
+		install_git_credentials;
+
 	else
 		echo 	" Dear user, all the TOOLS are already installed.         ";
 		echo 	"                                                         ";
