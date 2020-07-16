@@ -54,9 +54,13 @@ prog_validator()
 	then
 		BETTY_STAT="INSTALLED";
 		BETTY_P="${GREEN}INSTALLED${NC}";
-	else
-		BETTY_STAT="NOT FOUND";
-		BETTY_P="${RED}NOT FOUND${NC}";
+		if [ "$VAR1_BETTY" != "n" ];
+		then
+			BETTY_STAT="SKIPPED";
+			BETTY_P="${CYAN}SKIPPED${NC}"
+		else
+			BETTY_STAT="NOT FOUND";
+			BETTY_P="${RED}NOT FOUND${NC}";
 	fi
 	# -------------------------------
 	CHECK=$(zsh --version);
@@ -303,7 +307,7 @@ prog_validator;
 while [ $ENDING == "n" ];
 do
 	prompt;
-	if [ "$BETTY_STAT" == "NOT FOUND" || "$VAR1_BETTY" != "n" ];
+	if [ "$BETTY_STAT" == "NOT FOUND"];
 	then
 		install_betty;
 
