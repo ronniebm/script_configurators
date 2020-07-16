@@ -148,7 +148,7 @@ install_betty()
 		then
 			SKIP_BETTY=1;
 			BETTY_STAT="SKIPPED";
-			BETTY_P="${CYAN}SKIPPED${NC}";
+			BETTY_P="${CYAN} SKIPPED ${NC}";
 		fi
 	fi
 }
