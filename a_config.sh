@@ -26,6 +26,8 @@ echo -e '*  4. git credential helper ...........[ '"$GITCRED_P"' ]    *';
 echo -e	'*  5. shellcheck validator ............[ '"$SHELLCHECK_P"' ]    *';
 echo -e	'*  6. valgrind memory tester ..........[ '"$VALGRIND_P"' ]    *';
 echo -e	'*  7. MYSQL database ..................[ '"$MYSQL_P"' ]    *';
+echo -e	'*  8. VIM   [customized] ..............[ '"$VIM_P"' ]    *';
+echo -e	'*  9. EMACS [customized] ..............[ '"$EMACS_P"' ]    *';
 echo 	'*                                                       *';
 echo 	'*********************************************************';
 echo 	'';
@@ -42,6 +44,7 @@ skip_flags()
 {
 	BETTY_SKIP=0; ZSH_SKIP=0; GIT_SKIP=0; GITCRED_SKIP=0;
 	SHELLCHECK_SKIP=0; VALGRIND_SKIP=0; MYSQL_SKIP=0;
+	VIM_SKIP=0; EMACS_SKIP=0;
 }
 
 # installed programs checker.                                            
@@ -125,6 +128,19 @@ prog_validator()
 		else
 			VALGRIND_STAT="NOT FOUND"
 			VALGRIND_P="${RED}NOT FOUND${NC}"
+		fi
+	fi
+	# -------------------------------
+	CHECK=$(mysql --version);
+	if [ $MYSQL_SKIP = 0 ];
+	then
+		if [[ "$CHECK" == *"Ver"* ]];
+		then
+			MYSQL_STAT="INSTALLED"
+			MYSQL_P="${GREEN}INSTALLED${NC}"
+		else
+			MYSQL_STAT="NOT FOUND"
+			MYSQL_P="${RED}NOT FOUND${NC}"
 		fi
 	fi
 	# -------------------------------
