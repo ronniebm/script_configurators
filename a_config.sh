@@ -97,7 +97,7 @@ prog_validator()
 		SHELLCHECK_P="${RED}NOT FOUND${NC}"
 	fi
 	# -------------------------------
-	CHECK=$(shellcheck --version);
+	CHECK=$(valgrind --version);
 	if [[ "$CHECK" == *"version"* ]];
 	then
 		VALGRIND_STAT="INSTALLED"
