@@ -1,6 +1,6 @@
 # Script Configurators.  
   
-FILE:  "a_config.sh"
+#### FILE:  "a_config.sh"
 ---------------------------------
 This script let you install:  
 
