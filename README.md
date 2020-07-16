@@ -3,6 +3,7 @@
 FILE:  "a_config.sh"
 ---------------------------------
 This script let you install:  
+
      - Betty "C" code style validator.  
      - Zsh (Oh my Zsh shell).  
      - git.  
@@ -10,4 +11,4 @@ This script let you install:
   
 ---------------------------------  
 Author: Ronnie Barrios.  
-Email: ronnie.coding@gmail.com  
+Email: ronnie.coding@gmail.com.
