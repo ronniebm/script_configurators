@@ -98,7 +98,7 @@ prog_validator()
 	fi
 	# -------------------------------
 	CHECK=$(valgrind --version);
-	if [[ "$CHECK" == *"version"* ]];
+	if [[ "$CHECK" == *"valgrind"* ]];
 	then
 		VALGRIND_STAT="INSTALLED"
 		VALGRIND_P="${GREEN}INSTALLED${NC}"
@@ -220,7 +220,7 @@ install_shellcheck()
 		wait;
 		clear;
 		echo "**************************************";
-		echo " 		   shellcheck Installing...	    ";
+		echo "         shellcheck Installing...     ";
 		echo "**************************************";
 		sleep 2;
 	fi
@@ -238,7 +238,7 @@ install_valgrind()
 		wait;
 		clear;
 		echo "**************************************";
-		echo " 		  Valgrind  Installing...		";
+		echo "       Valgrind  Installing...        ";
 		echo "**************************************";
 		sleep 2;
 	fi
