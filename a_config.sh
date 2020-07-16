@@ -109,7 +109,7 @@ prog_validator()
 	fi
 	# -------------------------------
 	CHECK=$(mysql --version);
-	if [[ "$CHECK" == *"mysql"* ]];
+	if [[ "$CHECK" == *"Ver"* ]];
 	then
 		MYSQL_STAT="INSTALLED"
 		MYSQL_P="${GREEN}INSTALLED${NC}"
@@ -127,7 +127,7 @@ install_betty()
 	if [ "$VAR1" == "y" ];
 	then
 		VAR1="n";
-		sudo apt-get update;
+		sudo apt-get update -y;
 		wait;
 		git clone https://github.com/holbertonschool/Betty.git;
 		wait;
