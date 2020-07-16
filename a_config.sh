@@ -52,7 +52,7 @@ prog_validator()
 
 	# -------------------------------
 	CHECK=$(betty --version);
-	if [[ "$CHECK" == *"version"* || $SKIP_BETTY=0]];
+	if [[ "$CHECK" == *"version"* || $SKIP_BETTY=0 ]];
 	then
 		BETTY_STAT="INSTALLED";
 		BETTY_P="${GREEN}INSTALLED${NC}";
