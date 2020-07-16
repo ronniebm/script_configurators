@@ -124,26 +124,29 @@ prog_validator()
 # 1. Betty "C" code style install proccess.                                            
 install_betty()
 {
-	echo '1. Install Betty "C" code style validator ? (y/n)';
-	read -r VAR1_BETTY;
-	if [ "$VAR1_BETTY" == "y" ];
+	if [ $SKIP_BETTY = 0 ];
 	then
-		sudo apt-get update -y;
-		wait;
-		git clone https://github.com/holbertonschool/Betty.git;
-		wait;
-		echo '*******************************************';
-		echo 'preparing for installation proccess. wait !';
-		echo '*******************************************';
-		sleep 2;
-		sudo Betty/install.sh;
-		rm -r Betty;
-		sudo cp assets/betty /bin/;
-	elif [ "$VAR1_BETTY" == "n" ];
-	then
-		SKIP_BETTY=1;
-		BETTY_STAT="SKIPPED";
-		BETTY_P="${CYAN}SKIPPED${NC}";
+		echo '1. Install Betty "C" code style validator ? (y/n)';
+		read -r VAR1_BETTY;
+		if [ "$VAR1_BETTY" == "y" ];
+		then
+			sudo apt-get update -y;
+			wait;
+			git clone https://github.com/holbertonschool/Betty.git;
+			wait;
+			echo '*******************************************';
+			echo 'preparing for installation proccess. wait !';
+			echo '*******************************************';
+			sleep 2;
+			sudo Betty/install.sh;
+			rm -r Betty;
+			sudo cp assets/betty /bin/;
+		elif [ "$VAR1_BETTY" == "n" ];
+		then
+			SKIP_BETTY=1;
+			BETTY_STAT="SKIPPED";
+			BETTY_P="${CYAN}SKIPPED${NC}";
+		fi
 	fi
 }
 
