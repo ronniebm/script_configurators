@@ -40,8 +40,8 @@ color_settings()
 
 skip_flags()
 {
-	SKIP_BETTY=0; SKIP_ZSH=0; SKIP_GIT=0; SKIP_GITCRED=0;
-	SKIP_SHELLCHECK=0; SKIP_VALGRIND=0; SKIP_MYSQL=0;
+	BETTY_SKIP=0; ZSH_SKIP=0; GIT_SKIP=0; GITCRED_SKIP=0;
+	SHELLCHECK_SKIP=0; VALGRIND_SKIP=0; MYSQL_SKIP=0;
 }
 
 # installed programs checker.                                            
@@ -52,7 +52,7 @@ prog_validator()
 
 	# -------------------------------
 	CHECK=$(betty --version);
-	if [[ $SKIP_BETTY = 0 ]];
+	if [[ $BETTY_SKIP = 0 ]];
 	then
 		if [[ "$CHECK" == *"version"* ]];
 		then
@@ -65,69 +65,87 @@ prog_validator()
 	fi
 	# -------------------------------
 	CHECK=$(zsh --version);
-	if [[ "$CHECK" == *"ubuntu"* || "$CHECK" == *"linux"* ]];
+	if [[ $ZSH_SKIP = 0 ]];
 	then
-		ZSH_STAT="INSTALLED";
-		ZSH_P="${GREEN}INSTALLED${NC}";
-	else
-		ZSH_STAT="NOT FOUND"
-		ZSH_P="${RED}NOT FOUND${NC}"
+		if [[ "$CHECK" == *"ubuntu"* ]];
+		then
+			ZSH_STAT="INSTALLED";
+			ZSH_P="${GREEN}INSTALLED${NC}";
+		else
+			ZSH_STAT="NOT FOUND"
+			ZSH_P="${RED}NOT FOUND${NC}"
+		fi
 	fi
 	# -------------------------------
 	CHECK=$(git --version);
-	if [[ "$CHECK" == *"version"* ]];
+	if [[ $GIT_SKIP = 0 ]];
 	then
-		GIT_STAT="INSTALLED"
-		GIT_P="${GREEN}INSTALLED${NC}"
-	else
-		GIT_STAT="NOT FOUND"
-		GIT_P="${RED}NOT FOUND${NC}"
+		if [[ "$CHECK" == *"version"* ]];
+		then
+			GIT_STAT="INSTALLED"
+			GIT_P="${GREEN}INSTALLED${NC}"
+		else
+			GIT_STAT="NOT FOUND"
+			GIT_P="${RED}NOT FOUND${NC}"
+		fi
 	fi
 	# ------------------------------
-	if test -f "$FILE1";
+	if [[ $GITCRED_SKIP = 0 ]];
 	then
-		GITCRED_STAT="INSTALLED"
-		GITCRED_P="${GREEN}INSTALLED${NC}"
-	else
-		GITCRED_STAT="NOT FOUND"
-		GITCRED_P="${RED}NOT FOUND${NC}"
+		if test -f "$FILE1";
+		then
+			GITCRED_STAT="INSTALLED"
+			GITCRED_P="${GREEN}INSTALLED${NC}"
+		else
+			GITCRED_STAT="NOT FOUND"
+			GITCRED_P="${RED}NOT FOUND${NC}"
+		fi
 	fi
 	# -------------------------------
 	CHECK=$(shellcheck --version);
-	if [[ "$CHECK" == *"version"* ]];
+	if [[ $SHELLCHECK_SKIP = 0 ]];
 	then
-		SHELLCHECK_STAT="INSTALLED"
-		SHELLCHECK_P="${GREEN}INSTALLED${NC}"
-	else
-		SHELLCHECK_STAT="NOT FOUND"
-		SHELLCHECK_P="${RED}NOT FOUND${NC}"
+		if [[ "$CHECK" == *"version"* ]];
+		then
+			SHELLCHECK_STAT="INSTALLED"
+			SHELLCHECK_P="${GREEN}INSTALLED${NC}"
+		else
+			SHELLCHECK_STAT="NOT FOUND"
+			SHELLCHECK_P="${RED}NOT FOUND${NC}"
+		fi
 	fi
 	# -------------------------------
 	CHECK=$(valgrind --version);
-	if [[ "$CHECK" == *"valgrind"* ]];
+	if [[ $VALGRIND_SKIP = 0 ]];
 	then
-		VALGRIND_STAT="INSTALLED"
-		VALGRIND_P="${GREEN}INSTALLED${NC}"
-	else
-		VALGRIND_STAT="NOT FOUND"
-		VALGRIND_P="${RED}NOT FOUND${NC}"
+		if [[ "$CHECK" == *"valgrind"* ]];
+		then
+			VALGRIND_STAT="INSTALLED"
+			VALGRIND_P="${GREEN}INSTALLED${NC}"
+		else
+			VALGRIND_STAT="NOT FOUND"
+			VALGRIND_P="${RED}NOT FOUND${NC}"
+		fi
 	fi
 	# -------------------------------
 	CHECK=$(mysql --version);
-	if [[ "$CHECK" == *"Ver"* ]];
+	if [[ $MYSQL_SKIP = 0 ]];
 	then
-		MYSQL_STAT="INSTALLED"
-		MYSQL_P="${GREEN}INSTALLED${NC}"
-	else
-		MYSQL_STAT="NOT FOUND"
-		MYSQL_P="${RED}NOT FOUND${NC}"
+		if [[ "$CHECK" == *"Ver"* ]];
+		then
+			MYSQL_STAT="INSTALLED"
+			MYSQL_P="${GREEN}INSTALLED${NC}"
+		else
+			MYSQL_STAT="NOT FOUND"
+			MYSQL_P="${RED}NOT FOUND${NC}"
+		fi
 	fi
 }
 
 # 1. Betty "C" code style install proccess.                                            
 install_betty()
 {
-	if [ $SKIP_BETTY = 0 ];
+	if [ $BETTY_SKIP = 0 ];
 	then
 		echo '1. Install Betty "C" code style validator ? (y/n)';
 		read -r VAR1_BETTY;
@@ -146,7 +164,7 @@ install_betty()
 			sudo cp assets/betty /bin/;
 		elif [ "$VAR1_BETTY" == "n" ];
 		then
-			SKIP_BETTY=1;
+			BETTY_SKIP=1;
 			BETTY_STAT="SKIPPED";
 			BETTY_P="${CYAN} SKIPPED ${NC}";
 		fi
@@ -156,150 +174,180 @@ install_betty()
 # 2. Zsh Oh My ZSH shell.                                            
 install_zsh()
 {
-	echo '2. Install Zsh (Oh my Zsh shell) ? (y/n)';
-	read -r VAR1_ZSH;
-	if [ "$VAR1_ZSH" == "y" ]; 
+	if [ $ZSH_SKIP = 0 ];
 	then
-		VAR1="n";
-		sudo apt-get update;
-		sudo apt-get install zsh;
-		wait
-		git clone https://github.com/ohmyzsh/ohmyzsh.git;
-		chmod u+x $home/.oh-my-zsh/tools/install.sh;
-		clear;
-		echo "**************************************";
-		echo "  Zsh Shell successfully Installed... ";
-		echo "**************************************";
-		sleep 2;
-	elif [ "$VAR1_ZSH" == "n" ];
-	then
-		ZSH_P="${CYAN}SKIPPED${NC}"
+		echo '2. Install Zsh (Oh my Zsh shell) ? (y/n)';
+		read -r VAR1_ZSH;
+		if [ "$VAR1_ZSH" == "y" ]; 
+		then
+			VAR1="n";
+			sudo apt-get update;
+			sudo apt-get install zsh;
+			wait
+			git clone https://github.com/ohmyzsh/ohmyzsh.git;
+			chmod u+x $home/.oh-my-zsh/tools/install.sh;
+			clear;
+			echo "**************************************";
+			echo "  Zsh Shell successfully Installed... ";
+			echo "**************************************";
+			sleep 2;
+		elif [ "$VAR1_ZSH" == "n" ];
+		then
+			ZSH_SKIP=1;
+			ZSH_STAT="SKIPPED";
+			ZSH_P="${CYAN} SKIPPED ${NC}"
+		fi
 	fi
 }
 
 install_git()
 {
-	echo '3. Install git ? (y/n)';
-	read -r VAR1_GIT;
-	if [ "$VAR1_GIT" == "y" ]; 
+	if [ $GIT_SKIP = 0 ];
 	then
-		VAR1="n";
-		sudo apt-get update;
-		sudo apt-get install git;
-		wait;
-		clear;
-		echo "**************************************";
-		echo "     git successfully Installed...    ";
-		echo "**************************************";
-		sleep 2;
-	elif [ "$VAR1_GIT" == "n" ];
-	then
-		GIT_P="${CYAN}SKIPPED${NC}"
+		echo '3. Install git ? (y/n)';
+		read -r VAR1_GIT;
+		if [ "$VAR1_GIT" == "y" ]; 
+		then
+			VAR1="n";
+			sudo apt-get update;
+			sudo apt-get install git;
+			wait;
+			clear;
+			echo "**************************************";
+			echo "     git successfully Installed...    ";
+			echo "**************************************";
+			sleep 2;
+		elif [ "$VAR1_GIT" == "n" ];
+		then
+			GIT_SKIP=1;
+			GIT_STAT="SKIPPED";
+			GIT_P="${CYAN} SKIPPED ${NC}"
+		fi
 	fi
 }
 
 install_git_credentials()
 {
-	echo '4. Install git credentials ? (y/n)';
-	read -r VAR1_GITCRED;
-	if [ "$VAR1_GITCRED" == "y" ]; 
+	if [ $GITCRED_SKIP = 0 ];
 	then
-		VAR1="n";
-		echo "";
-		echo -e "*Please write your github ${GREEN}USER NAME${NC} account:";
-		read -r GIT_USER;
-		echo "";
-		echo -e "*Please write your github ${GREEN}PASSWORD${NC} account:";
-		read -r GIT_PASSW;
-		echo "";
-		echo -e "*Please write your github ${GREEN}EMAIL${NC} account:";
-		read -r GIT_EMAIL;
-		#git config --global user.name $GIT_USER;
-		#git config --global user.email $GIT_EMAIL;
-		#git config --global push.default matching
-		# ----------------------------------------------------------------
-		echo "[user]" > $HOME/.gitconfig
-		echo "     name = $GIT_USER" >> $HOME/.gitconfig
-		echo "     email = $GIT_EMAIL" >> $HOME/.gitconfig
-		echo "[push]" >> $HOME/.gitconfig
-		echo "     default = matching" >> $HOME/.gitconfig
-		echo "[credential]" >> $HOME/.gitconfig
-		echo "     helper = store" >> $HOME/.gitconfig
-		# ----------------------------------------------------------------
-		echo "https://$GIT_USER:$GIT_PASSW@github.com" >> $HOME/.git-credentials
-		return;
-		
-		clear;
-		echo "**************************************";
-		echo "   Github Credentials installing...   ";
-		echo "**************************************";
-		sleep 2;
-	elif [ "$VAR1_GITCRED" == "n" ];
-	then
-		GITCRED_P="${CYAN}SKIPPED${NC}"
+		echo '4. Install git credentials ? (y/n)';
+		read -r VAR1_GITCRED;
+		if [ "$VAR1_GITCRED" == "y" ]; 
+		then
+			VAR1="n";
+			echo "";
+			echo -e "*Please write your github ${GREEN}USER NAME${NC} account:";
+			read -r GIT_USER;
+			echo "";
+			echo -e "*Please write your github ${GREEN}PASSWORD${NC} account:";
+			read -r GIT_PASSW;
+			echo "";
+			echo -e "*Please write your github ${GREEN}EMAIL${NC} account:";
+			read -r GIT_EMAIL;
+			#git config --global user.name $GIT_USER;
+			#git config --global user.email $GIT_EMAIL;
+			#git config --global push.default matching
+			# ----------------------------------------------------------------
+			echo "[user]" > $HOME/.gitconfig
+			echo "     name = $GIT_USER" >> $HOME/.gitconfig
+			echo "     email = $GIT_EMAIL" >> $HOME/.gitconfig
+			echo "[push]" >> $HOME/.gitconfig
+			echo "     default = matching" >> $HOME/.gitconfig
+			echo "[credential]" >> $HOME/.gitconfig
+			echo "     helper = store" >> $HOME/.gitconfig
+			# ----------------------------------------------------------------
+			echo "https://$GIT_USER:$GIT_PASSW@github.com" >> $HOME/.git-credentials
+			return;
+			
+			clear;
+			echo "**************************************";
+			echo "   Github Credentials installing...   ";
+			echo "**************************************";
+			sleep 2;
+		elif [ "$VAR1_GITCRED" == "n" ];
+		then
+			GITCRED_SKIP=1;
+			GITCRED_STAT="SKIPPED";
+			GITCRED_P="${CYAN} SKIPPED ${NC}"
+		fi
 	fi
 }
 
 install_shellcheck()
 {
-	echo '5. Install shellcheck script validator ? (y/n)';
-	read -r VAR1_SHELLCHECK;
-	if [ "$VAR1_SHELLCHECK" == "y" ]; 
+	if [ $SHELLCHECK_SKIP = 0 ];
 	then
-		VAR1="n";
-		sudo apt-get update;
-		sudo apt-get install shellcheck;
-		wait;
-		clear;
-		echo "**************************************";
-		echo "         shellcheck Installing...     ";
-		echo "**************************************";
-		sleep 2;
-	elif [ "$VAR1_SHELLCHECK" == "n" ];
-	then
-		SHELLCHECK_P="${CYAN}SKIPPED${NC}"
+		echo '5. Install shellcheck script validator ? (y/n)';
+		read -r VAR1_SHELLCHECK;
+		if [ "$VAR1_SHELLCHECK" == "y" ]; 
+		then
+			VAR1="n";
+			sudo apt-get update;
+			sudo apt-get install shellcheck;
+			wait;
+			clear;
+			echo "**************************************";
+			echo "         shellcheck Installing...     ";
+			echo "**************************************";
+			sleep 2;
+		elif [ "$VAR1_SHELLCHECK" == "n" ];
+		then
+			SHELLCHECK_SKIP=1;
+			SHELLCHECK="SKIPPED";
+			SHELLCHECK_P="${CYAN} SKIPPED ${NC}"
+		fi
 	fi
 }
 
 install_valgrind()
 {
-	echo '6. Install valgrind memory tester ? (y/n)';
-	read -r VAR1_VALGRIND;
-	if [ "$VAR1_VALGRIND" == "y" ]; 
+	if [ $VALGRIND_SKIP = 0 ];
 	then
-		VAR1="n";
-		sudo apt-get update;
-		sudo apt-get install valgrind;
-		wait;
-		clear;
-		echo "**************************************";
-		echo "       Valgrind  Installing...        ";
-		echo "**************************************";
-		sleep 2;
-	elif [ "$VAR1_VALGRIND" == "n" ];
-	then
-		VALGRIND_P="${CYAN}SKIPPED${NC}"
+		echo '6. Install valgrind memory tester ? (y/n)';
+		read -r VAR1_VALGRIND;
+		if [ "$VAR1_VALGRIND" == "y" ]; 
+		then
+			VAR1="n";
+			sudo apt-get update;
+			sudo apt-get install valgrind;
+			wait;
+			clear;
+			echo "**************************************";
+			echo "       Valgrind  Installing...        ";
+			echo "**************************************";
+			sleep 2;
+		elif [ "$VAR1_VALGRIND" == "n" ];
+		then
+			VALGRIND_SKIP=1;
+			VALGRIND_STAT="SKIPPED"
+			VALGRIND_P="${CYAN} SKIPPED ${NC}"
+		fi
 	fi
 }
 
 install_mysql()
 {
-	echo '7. Install mysql ? (y/n)';
-	read -r VAR1_MYSQL;
-	if [ "$VAR1_MYSQL" == "y" ]; 
+	if [ $MYSQL_SKIP = 0 ];
 	then
-		VAR1="n";
-		sudo apt-get update;
-		sudo apt-get install mysql-server;
-		wait;
-		clear;
-		echo "**************************************";
-		echo "          MYSQL Installing...         ";
-		echo "**************************************";
-		sleep 2;
-	elif [ "$VAR1_MYSQL" == "n" ];
-	then
-		MYSQL_P="${CYAN}SKIPPED${NC}"
+		echo '7. Install mysql ? (y/n)';
+		read -r VAR1_MYSQL;
+		if [ "$VAR1_MYSQL" == "y" ]; 
+		then
+			VAR1="n";
+			sudo apt-get update;
+			sudo apt-get install mysql-server;
+			wait;
+			clear;
+			echo "**************************************";
+			echo "          MYSQL Installing...         ";
+			echo "**************************************";
+			sleep 2;
+		elif [ "$VAR1_MYSQL" == "n" ];
+		then
+			MYSQL_SKIP=1;
+			MYSQL_STAT="SKIPPED"
+			MYSQL_P="${CYAN} SKIPPED ${NC}"
+		fi
 	fi
 }
 
