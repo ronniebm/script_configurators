@@ -24,6 +24,7 @@ echo -e '*  2. Zsh (Oh my Zsh shell) ...........[ '"$ZSH_P"' ]    *';
 echo -e '*  3. git .............................[ '"$GIT_P"' ]    *';
 echo -e '*  4. git -credential helper ..........[ '"$GITCRED_P"' ]    *';
 echo -e	'*  5. shellcheck validator ............[ '"$SHELLCHECK_P"' ]      *';
+echo -e	'*  6. valgrind memory tester ..........[ '"$VALGRIND_P"' ]      *';
 echo 	'*                                                       *';
 echo 	'*********************************************************';
 echo 	'';
@@ -94,6 +95,16 @@ prog_validator()
 	else
 		SHELLCHECK_STAT="NOT FOUND"
 		SHELLCHECK_P="${RED}NOT FOUND${NC}"
+	fi
+	# -------------------------------
+	CHECK=$(shellcheck --version);
+	if [[ "$CHECK" == *"version"* ]];
+	then
+		VALGRIND_STAT="INSTALLED"
+		VALGRIND_P="${GREEN}INSTALLED${NC}"
+	else
+		VALGRIND_STAT="NOT FOUND"
+		VALGRIND_P="${RED}NOT FOUND${NC}"
 	fi
 }
 
@@ -209,7 +220,25 @@ install_shellcheck()
 		wait;
 		clear;
 		echo "**************************************";
-		echo " shellcheck successfully Installing...";
+		echo " 		   shellcheck Installing...	    ";
+		echo "**************************************";
+		sleep 2;
+	fi
+}
+
+install_valgrind()
+{
+	echo '3. Install valgrind memory tester ? (y/n)';
+	read -r VAR1;
+	if [ "$VAR1" == "y" ]; 
+	then
+		VAR1="n";
+		sudo apt-get update;
+		sudo apt-get install valgrind;
+		wait;
+		clear;
+		echo "**************************************";
+		echo " 		  Valgrind  Installing...		";
 		echo "**************************************";
 		sleep 2;
 	fi
@@ -244,6 +273,10 @@ do
 	elif [ "$SHELLCHECK_STAT" == "NOT FOUND" ];
 		then
 			install_shellcheck;
+
+	elif [ "$VALGRIND_STAT" == "NOT FOUND" ];
+		then
+			install_valgrind;
 
 	else
 		echo 	" Dear user, all the TOOLS are already installed.         ";
