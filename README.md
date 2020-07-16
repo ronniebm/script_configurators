@@ -2,7 +2,7 @@
   
 #### FILE:  "a_config.sh"
 ---------------------------------
-This script let you install:  
+This script will let you install:  
 
      1. Betty "C" code style validator.  
      2. Zsh (Oh my Zsh shell).  
@@ -10,6 +10,6 @@ This script let you install:
      4. git credential helper.  
   
 ---------------------------------  
-Author: Ronnie Barrios.  
-Email: ronnie.coding@gmail.com  
-github: ronniebm.
+<b>Author:</b> Ronnie Barrios.  
+<b>Email:</b> ronnie.coding@gmail.com  
+<b>github:</b> ronniebm.
