@@ -308,31 +308,31 @@ prog_validator;
 while [ $ENDING == "n" ];
 do
 	prompt;
-	if [ "$BETTY_STAT" == "NOT FOUND"];
+	if [ "$BETTY_STAT" == "NOT FOUND" ];
 	then
 		install_betty;
 
-	elif [ "$ZSH_STAT" == "NOT FOUND" || "$VAR1_ZSH" != "n" ];
+	elif [ "$ZSH_STAT" == "NOT FOUND" ];
 	then
 		install_zsh;
 
-	elif [ "$GIT_STAT" == "NOT FOUND" || "$VAR1_GIT" != "n"];
+	elif [ "$GIT_STAT" == "NOT FOUND" ];
 	then
 		install_git;
 
-	elif [ "$GITCRED_STAT" == "NOT FOUND" || "$VAR1_GITCRED" != "n" ];
+	elif [ "$GITCRED_STAT" == "NOT FOUND" ];
 	then
 		install_git_credentials;
 
-	elif [ "$SHELLCHECK_STAT" == "NOT FOUND" || "$VAR1_SHELLCHECK" != "n" ];
+	elif [ "$SHELLCHECK_STAT" == "NOT FOUND" ];
 		then
 			install_shellcheck;
 
-	elif [ "$VALGRIND_STAT" == "NOT FOUND" || "$VAR1_VALGRIND" != "n" ];
+	elif [ "$VALGRIND_STAT" == "NOT FOUND" ];
 		then
 			install_valgrind;
 
-	elif [ "$MYSQL_STAT" == "NOT FOUND" || "$VAR1_MYSQL" != "n"];
+	elif [ "$MYSQL_STAT" == "NOT FOUND" ];
 		then
 			install_mysql;
 
