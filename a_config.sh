@@ -22,7 +22,7 @@ echo 	'*  0. Automatic Installation                            *';
 echo -e '*  1. betty (C code style validator) ..[ '"$BETTY_P"' ]    *';
 echo -e '*  2. Zsh (Oh my Zsh shell) ...........[ '"$ZSH_P"' ]    *';
 echo -e '*  3. git .............................[ '"$GIT_P"' ]    *';
-echo -e '*  4. git -credential helper ..........[ '"$GITCRED_P"' ]    *';
+echo -e '*  4. git credential helper ...........[ '"$GITCRED_P"' ]    *';
 echo -e	'*  5. shellcheck validator ............[ '"$SHELLCHECK_P"' ]    *';
 echo -e	'*  6. valgrind memory tester ..........[ '"$VALGRIND_P"' ]    *';
 echo -e	'*  7. MYSQL database ..................[ '"$MYSQL_P"' ]    *';
@@ -52,7 +52,7 @@ prog_validator()
 
 	# -------------------------------
 	CHECK=$(betty --version);
-	if [[ $BETTY_SKIP = 0 ]];
+	if [ $BETTY_SKIP = 0 ];
 	then
 		if [[ "$CHECK" == *"version"* ]];
 		then
@@ -65,7 +65,7 @@ prog_validator()
 	fi
 	# -------------------------------
 	CHECK=$(zsh --version);
-	if [[ $ZSH_SKIP = 0 ]];
+	if [ $ZSH_SKIP = 0 ];
 	then
 		if [[ "$CHECK" == *"ubuntu"* ]];
 		then
@@ -78,7 +78,7 @@ prog_validator()
 	fi
 	# -------------------------------
 	CHECK=$(git --version);
-	if [[ $GIT_SKIP = 0 ]];
+	if [ $GIT_SKIP = 0 ];
 	then
 		if [[ "$CHECK" == *"version"* ]];
 		then
@@ -90,7 +90,7 @@ prog_validator()
 		fi
 	fi
 	# ------------------------------
-	if [[ $GITCRED_SKIP = 0 ]];
+	if [ $GITCRED_SKIP = 0 ];
 	then
 		if test -f "$FILE1";
 		then
@@ -103,7 +103,7 @@ prog_validator()
 	fi
 	# -------------------------------
 	CHECK=$(shellcheck --version);
-	if [[ $SHELLCHECK_SKIP = 0 ]];
+	if [ $SHELLCHECK_SKIP = 0 ];
 	then
 		if [[ "$CHECK" == *"version"* ]];
 		then
@@ -116,7 +116,7 @@ prog_validator()
 	fi
 	# -------------------------------
 	CHECK=$(valgrind --version);
-	if [[ $VALGRIND_SKIP = 0 ]];
+	if [ $VALGRIND_SKIP = 0 ];
 	then
 		if [[ "$CHECK" == *"valgrind"* ]];
 		then
@@ -129,7 +129,7 @@ prog_validator()
 	fi
 	# -------------------------------
 	CHECK=$(mysql --version);
-	if [[ $MYSQL_SKIP = 0 ]];
+	if [ $MYSQL_SKIP = 0 ];
 	then
 		if [[ "$CHECK" == *"Ver"* ]];
 		then
@@ -230,7 +230,7 @@ install_git_credentials()
 {
 	if [ $GITCRED_SKIP = 0 ];
 	then
-		echo '4. Install git credentials ? (y/n)';
+		echo '4. Install git credential helper ? (y/n)';
 		read -r VAR1_GITCRED;
 		if [ "$VAR1_GITCRED" == "y" ]; 
 		then
@@ -379,16 +379,16 @@ do
 		install_git_credentials;
 
 	elif [ "$SHELLCHECK_STAT" == "NOT FOUND" ];
-		then
-			install_shellcheck;
+	then
+		install_shellcheck;
 
 	elif [ "$VALGRIND_STAT" == "NOT FOUND" ];
-		then
-			install_valgrind;
+	then
+		install_valgrind;
 
 	elif [ "$MYSQL_STAT" == "NOT FOUND" ];
-		then
-			install_mysql;
+	then
+		install_mysql;
 
 	else
 		echo 	" Dear user, all the TOOLS are already installed.         ";
