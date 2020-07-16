@@ -176,9 +176,8 @@ install_git_credentials()
 		echo "[credential]" >> $HOME/.gitconfig
 		echo "     helper = store" >> $HOME/.gitconfig
 		# ----------------------------------------------------------------
-		return;
-		
 		echo "https://$GIT_USER:$GIT_PASSW@github.com" >> $HOME/.git-credentials
+		return;
 		
 		clear;
 		echo "**************************************";
