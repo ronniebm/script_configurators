@@ -8,7 +8,12 @@ This script will let you install:
      2. Zsh (Oh my Zsh shell).  
      3. git.  
      4. git credential helper.  
-  
+     5. shellcheck validator.  
+     6. valgrind memory tester.  
+     7. MYSQL database.  
+     8. VIM   [customized].  
+     9. EMACS [customized].  
+
 ---------------------------------  
 <b>Author:</b> Ronnie Barrios.  
 <b>Email:</b> ronnie.coding@gmail.com  
