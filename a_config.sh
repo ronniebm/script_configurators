@@ -164,7 +164,9 @@ install_git_credentials()
 		echo "";
 		echo -e "*Please write your github ${GREEN}EMAIL${NC} account:";
 		read -r GIT_EMAIL;
-		echo "https://$GIT_USER:$GIT_PASSW@github.com" > $HOME/.git-credentials
+		git config --global credential.helper cache
+		exit;
+		echo "https://$GIT_USER:$GIT_PASSW@github.com" >> $HOME/.git-credentials
 		git config --global push.default matching
 		git config --global user.name $GIT_USER;
 		git config --global user.email $GIT_EMAIL;
