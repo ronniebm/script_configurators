@@ -52,13 +52,16 @@ prog_validator()
 
 	# -------------------------------
 	CHECK=$(betty --version);
-	if [[ "$CHECK" == *"version"* || $SKIP_BETTY=0 ]];
+	if [[ $SKIP_BETTY = 0 ]];
 	then
-		BETTY_STAT="INSTALLED";
-		BETTY_P="${GREEN}INSTALLED${NC}";
-	else
-		BETTY_STAT="NOT FOUND";
-		BETTY_P="${RED}NOT FOUND${NC}";
+		if [[ "$CHECK" == *"version"* ]];
+		then
+			BETTY_STAT="INSTALLED";
+			BETTY_P="${GREEN}INSTALLED${NC}";
+		else
+			BETTY_STAT="NOT FOUND";
+			BETTY_P="${RED}NOT FOUND${NC}";
+		fi
 	fi
 	# -------------------------------
 	CHECK=$(zsh --version);
