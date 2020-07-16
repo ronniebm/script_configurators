@@ -180,7 +180,6 @@ install_zsh()
 		read -r VAR1_ZSH;
 		if [ "$VAR1_ZSH" == "y" ]; 
 		then
-			VAR1="n";
 			sudo apt-get update;
 			sudo apt-get install zsh;
 			wait
@@ -208,7 +207,6 @@ install_git()
 		read -r VAR1_GIT;
 		if [ "$VAR1_GIT" == "y" ]; 
 		then
-			VAR1="n";
 			sudo apt-get update;
 			sudo apt-get install git;
 			wait;
@@ -234,7 +232,6 @@ install_git_credentials()
 		read -r VAR1_GITCRED;
 		if [ "$VAR1_GITCRED" == "y" ]; 
 		then
-			VAR1="n";
 			echo "";
 			echo -e "*Please write your github ${GREEN}USER NAME${NC} account:";
 			read -r GIT_USER;
@@ -281,7 +278,6 @@ install_shellcheck()
 		read -r VAR1_SHELLCHECK;
 		if [ "$VAR1_SHELLCHECK" == "y" ]; 
 		then
-			VAR1="n";
 			sudo apt-get update;
 			sudo apt-get install shellcheck;
 			wait;
@@ -293,7 +289,7 @@ install_shellcheck()
 		elif [ "$VAR1_SHELLCHECK" == "n" ];
 		then
 			SHELLCHECK_SKIP=1;
-			SHELLCHECK="SKIPPED";
+			SHELLCHECK_STAT="SKIPPED";
 			SHELLCHECK_P="${CYAN} SKIPPED ${NC}"
 		fi
 	fi
@@ -307,7 +303,6 @@ install_valgrind()
 		read -r VAR1_VALGRIND;
 		if [ "$VAR1_VALGRIND" == "y" ]; 
 		then
-			VAR1="n";
 			sudo apt-get update;
 			sudo apt-get install valgrind;
 			wait;
@@ -333,7 +328,6 @@ install_mysql()
 		read -r VAR1_MYSQL;
 		if [ "$VAR1_MYSQL" == "y" ]; 
 		then
-			VAR1="n";
 			sudo apt-get update;
 			sudo apt-get install mysql-server;
 			wait;
