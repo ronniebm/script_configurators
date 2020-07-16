@@ -123,10 +123,9 @@ prog_validator()
 install_betty()
 {
 	echo '1. Install Betty "C" code style validator ? (y/n)';
-	read -r VAR1;
-	if [ "$VAR1" == "y" ];
+	read -r VAR1_BETTY;
+	if [ "$VAR1_BETTY" == "y" ];
 	then
-		VAR1="n";
 		sudo apt-get update -y;
 		wait;
 		git clone https://github.com/holbertonschool/Betty.git;
@@ -138,6 +137,9 @@ install_betty()
 		sudo Betty/install.sh;
 		rm -r Betty;
 		sudo cp assets/betty /bin/;
+	elif [ "$VAR1_BETTY" == "n" ];
+	then
+		BETTY_P="${CYAN}SKIPPED${NC}"
 	fi
 }
 
@@ -145,8 +147,8 @@ install_betty()
 install_zsh()
 {
 	echo '2. Install Zsh (Oh my Zsh shell) ? (y/n)';
-	read -r VAR1;
-	if [ "$VAR1" == "y" ]; 
+	read -r VAR1_ZSH;
+	if [ "$VAR1_ZSH" == "y" ]; 
 	then
 		VAR1="n";
 		sudo apt-get update;
@@ -159,14 +161,17 @@ install_zsh()
 		echo "  Zsh Shell successfully Installed... ";
 		echo "**************************************";
 		sleep 2;
+	elif [ "$VAR1_ZSH" == "n" ];
+	then
+		ZSH_P="${CYAN}SKIPPED${NC}"
 	fi
 }
 
 install_git()
 {
 	echo '3. Install git ? (y/n)';
-	read -r VAR1;
-	if [ "$VAR1" == "y" ]; 
+	read -r VAR1_GIT;
+	if [ "$VAR1_GIT" == "y" ]; 
 	then
 		VAR1="n";
 		sudo apt-get update;
@@ -177,14 +182,17 @@ install_git()
 		echo "     git successfully Installed...    ";
 		echo "**************************************";
 		sleep 2;
+	elif [ "$VAR1_GIT" == "n" ];
+	then
+		GIT_P="${CYAN}SKIPPED${NC}"
 	fi
 }
 
 install_git_credentials()
 {
 	echo '4. Install git credentials ? (y/n)';
-	read -r VAR1;
-	if [ "$VAR1" == "y" ]; 
+	read -r VAR1_GITCRED;
+	if [ "$VAR1_GITCRED" == "y" ]; 
 	then
 		VAR1="n";
 		echo "";
@@ -216,14 +224,17 @@ install_git_credentials()
 		echo "   Github Credentials installing...   ";
 		echo "**************************************";
 		sleep 2;
+	elif [ "$VAR1_GITCRED" == "n" ];
+	then
+		GITCRED_P="${CYAN}SKIPPED${NC}"
 	fi
 }
 
 install_shellcheck()
 {
-	echo '3. Install shellcheck script validator ? (y/n)';
-	read -r VAR1;
-	if [ "$VAR1" == "y" ]; 
+	echo '5. Install shellcheck script validator ? (y/n)';
+	read -r VAR1_SHELLCHECK;
+	if [ "$VAR1_SHELLCHECK" == "y" ]; 
 	then
 		VAR1="n";
 		sudo apt-get update;
@@ -234,14 +245,17 @@ install_shellcheck()
 		echo "         shellcheck Installing...     ";
 		echo "**************************************";
 		sleep 2;
+	elif [ "$VAR1_SHELLCHECK" == "n" ];
+	then
+		SHELLCHECK_P="${CYAN}SKIPPED${NC}"
 	fi
 }
 
 install_valgrind()
 {
-	echo '3. Install valgrind memory tester ? (y/n)';
-	read -r VAR1;
-	if [ "$VAR1" == "y" ]; 
+	echo '6. Install valgrind memory tester ? (y/n)';
+	read -r VAR1_VALGRIND;
+	if [ "$VAR1_VALGRIND" == "y" ]; 
 	then
 		VAR1="n";
 		sudo apt-get update;
@@ -252,6 +266,30 @@ install_valgrind()
 		echo "       Valgrind  Installing...        ";
 		echo "**************************************";
 		sleep 2;
+	elif [ "$VAR1_VALGRIND" == "n" ];
+	then
+		VALGRIND_P="${CYAN}SKIPPED${NC}"
+	fi
+}
+
+install_mysql()
+{
+	echo '7. Install mysql ? (y/n)';
+	read -r VAR1_MYSQL;
+	if [ "$VAR1_MYSQL" == "y" ]; 
+	then
+		VAR1="n";
+		sudo apt-get update;
+		sudo apt-get install mysql-server;
+		wait;
+		clear;
+		echo "**************************************";
+		echo "          MYSQL Installing...         ";
+		echo "**************************************";
+		sleep 2;
+	elif [ "$VAR1_MYSQL" == "n" ];
+	then
+		MYSQL_P="${CYAN}SKIPPED${NC}"
 	fi
 }
 
@@ -265,29 +303,33 @@ prog_validator;
 while [ $ENDING == "n" ];
 do
 	prompt;
-	if [ "$BETTY_STAT" == "NOT FOUND" ];
+	if [ "$BETTY_STAT" == "NOT FOUND" || "$VAR1_BETTY" != "n" ];
 	then
 		install_betty;
 
-	elif [ "$ZSH_STAT" == "NOT FOUND" ];
+	elif [ "$ZSH_STAT" == "NOT FOUND" || "$VAR1_ZSH" != "n" ];
 	then
 		install_zsh;
 
-	elif [ "$GIT_STAT" == "NOT FOUND" ];
+	elif [ "$GIT_STAT" == "NOT FOUND" || "$VAR1_GIT" != "n"];
 	then
 		install_git;
 
-	elif [ "$GITCRED_STAT" == "NOT FOUND" ];
+	elif [ "$GITCRED_STAT" == "NOT FOUND" || "$VAR1_GITCRED" != "n" ];
 	then
 		install_git_credentials;
 
-	elif [ "$SHELLCHECK_STAT" == "NOT FOUND" ];
+	elif [ "$SHELLCHECK_STAT" == "NOT FOUND" || "$VAR1_SHELLCHECK" != "n" ];
 		then
 			install_shellcheck;
 
-	elif [ "$VALGRIND_STAT" == "NOT FOUND" ];
+	elif [ "$VALGRIND_STAT" == "NOT FOUND" || "$VAR1_VALGRIND" != "n" ];
 		then
 			install_valgrind;
+
+	elif [ "$MYSQL_STAT" == "NOT FOUND" || "$VAR1_MYSQL" != "n"];
+		then
+			install_mysql;
 
 	else
 		echo 	" Dear user, all the TOOLS are already installed.         ";
