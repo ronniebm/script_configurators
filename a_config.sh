@@ -23,8 +23,9 @@ echo -e '*  1. betty (C code style validator) ..[ '"$BETTY_P"' ]    *';
 echo -e '*  2. Zsh (Oh my Zsh shell) ...........[ '"$ZSH_P"' ]    *';
 echo -e '*  3. git .............................[ '"$GIT_P"' ]    *';
 echo -e '*  4. git -credential helper ..........[ '"$GITCRED_P"' ]    *';
-echo -e	'*  5. shellcheck validator ............[ '"$SHELLCHECK_P"' ]      *';
-echo -e	'*  6. valgrind memory tester ..........[ '"$VALGRIND_P"' ]      *';
+echo -e	'*  5. shellcheck validator ............[ '"$SHELLCHECK_P"' ]    *';
+echo -e	'*  6. valgrind memory tester ..........[ '"$VALGRIND_P"' ]    *';
+echo -e	'*  7. MYSQL database ..................[ '"$MYSQL_P"' ]    *';
 echo 	'*                                                       *';
 echo 	'*********************************************************';
 echo 	'';
@@ -105,6 +106,16 @@ prog_validator()
 	else
 		VALGRIND_STAT="NOT FOUND"
 		VALGRIND_P="${RED}NOT FOUND${NC}"
+	fi
+	# -------------------------------
+	CHECK=$(mysql --version);
+	if [[ "$CHECK" == *"mysql"* ]];
+	then
+		MYSQL_STAT="INSTALLED"
+		MYSQL_P="${GREEN}INSTALLED${NC}"
+	else
+		MYSQL_STAT="NOT FOUND"
+		MYSQL_P="${RED}NOT FOUND${NC}"
 	fi
 }
 
