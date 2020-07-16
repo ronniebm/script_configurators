@@ -61,6 +61,7 @@ prog_validator()
 		else
 			BETTY_STAT="NOT FOUND";
 			BETTY_P="${RED}NOT FOUND${NC}";
+		fi
 	fi
 	# -------------------------------
 	CHECK=$(zsh --version);
