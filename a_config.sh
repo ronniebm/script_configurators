@@ -155,10 +155,11 @@ install_git_credentials()
 	if [ "$VAR1" == "y" ]; 
 	then
 		VAR1="n";
-		echo -e "Please write your github ${GREEN}USER NAME${NC} account:";
+		echo "";
+		echo -e "*Please write your github ${GREEN}USER NAME${NC} account:";
 		read -r GIT_USER;
 		echo "";
-		echo -e "Please write your github ${GREEN}EMAIL${NC} account:";
+		echo -e "*Please write your github ${GREEN}EMAIL${NC} account:";
 		read -r GIT_EMAIL;
 		git config --global user.name $GIT_USER;
 		git config --global user.email $GIT_EMAIL;
