@@ -34,12 +34,14 @@ echo 	'';
 # color settings
 color_settings()
 {
-	RED="\033[0;31m"; 		# Red color.
-	GREEN="\033[0;32m";		# Green color.
-	CYAN="\033[0;36m"; 		# Cyan color.
-	YELLOW="\033[1;33m"; 	# Yellow color.
-	WHITE="\033[1;37m"; 	# White color.
-	NC="\033[0m"; 			# NO Color.
+	RED="\033[0;31m"; GREEN="\033[0;32m"; CYAN="\033[0;36m";
+	YELLOW="\033[1;33m"; WHITE="\033[1;37m"; NC="\033[0m";
+}
+
+skip_flags()
+{
+	SKIP_BETTY=0; SKIP_ZSH=0; SKIP_GIT=0; SKIP_GITCRED=0;
+	SKIP_SHELLCHECK=0; SKIP_VALGRIND=0; SKIP_MYSQL=0;
 }
 
 # installed programs checker.                                            
@@ -50,18 +52,13 @@ prog_validator()
 
 	# -------------------------------
 	CHECK=$(betty --version);
-	if [[ "$CHECK" == *"version"* ]];
+	if [[ "$CHECK" == *"version"* || $SKIP_BETTY=0]];
 	then
 		BETTY_STAT="INSTALLED";
 		BETTY_P="${GREEN}INSTALLED${NC}";
-		if [ "$VAR1_BETTY" != "n" ];
-		then
-			BETTY_STAT="SKIPPED";
-			BETTY_P="${CYAN}SKIPPED${NC}"
-		else
-			BETTY_STAT="NOT FOUND";
-			BETTY_P="${RED}NOT FOUND${NC}";
-		fi
+	else
+		BETTY_STAT="NOT FOUND";
+		BETTY_P="${RED}NOT FOUND${NC}";
 	fi
 	# -------------------------------
 	CHECK=$(zsh --version);
@@ -144,7 +141,9 @@ install_betty()
 		sudo cp assets/betty /bin/;
 	elif [ "$VAR1_BETTY" == "n" ];
 	then
-		BETTY_P="${CYAN}SKIPPED${NC}"
+		SKIP_BETTY=1;
+		BETTY_STAT="SKIPPED";
+		BETTY_P="${CYAN}SKIPPED${NC}";
 	fi
 }
 
@@ -303,6 +302,7 @@ install_mysql()
 # -----------------------------------------
 ENDING="n";
 color_settings;
+skip_flags;
 prog_validator;
 
 while [ $ENDING == "n" ];
