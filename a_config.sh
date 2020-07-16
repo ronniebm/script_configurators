@@ -21,7 +21,7 @@ echo 	'*                                                       *';
 echo 	'*  0. Automatic Installation                            *';
 echo -e '*  1. betty (C code style validator) ..[ '"$BETTY_P"' ]    *';
 echo -e '*  2. Zsh (Oh my Zsh shell) ...........[ '"$ZSH_P"' ]    *';
-echo -e '*  3. gitff ...........................[ '"$GIT_P"' ]    *';
+echo -e '*  3. git .............................[ '"$GIT_P"' ]    *';
 echo -e '*  4. git -credential helper ..........[ '"$GITCRED_P"' ]    *';
 echo -e	'*  5. pep8 python codestyle ...........[ '"$PEP_P"' ]      *';
 echo 	'*                                                       *';
@@ -67,7 +67,7 @@ prog_validator()
 		ZSH_P="${RED}NOT FOUND${NC}"
 	fi
 	# -------------------------------
-	CHECK=$(gitff --version);
+	CHECK=$(git --version);
 	if [[ "$CHECK" == *"version"* ]];
 	then
 		GIT_STAT="INSTALLED"
@@ -130,6 +130,48 @@ install_zsh()
 	fi
 }
 
+install_git()
+{
+	echo '3. Install git ? (y/n)';
+	read -r VAR1;
+	if [ "$VAR1" == "y" ]; 
+	then
+		VAR1="n";
+		sudo apt-get update;
+		sudo apt-get install git;
+		wait;
+		clear;
+		echo "**************************************";
+		echo "     git successfully Installed...    ";
+		echo "**************************************";
+		sleep 2;
+	fi
+}
+
+install_git_credentials()
+{
+	echo '4. Install git credentials ? (y/n)';
+	read -r VAR1;
+	if [ "$VAR1" == "y" ]; 
+	then
+		VAR1="n";
+		echo -e "Please write your github ${GREEN}USER NAME${NC} account:";
+		print "==>";
+		read -r GIT_USER;
+		echo "";
+		echo -e "Please write your github ${GREEN}EMAIL${NC} account:";
+		print "==>";
+		read -r GIT_EMAIL;
+		git config --global user.name $GIT_USER;
+		git config --global user.email $GIT_EMAIL;
+		clear;
+		echo "**************************************";
+		echo "    Github Credentials installed...   ";
+		echo "**************************************";
+		sleep 2;
+	fi
+}
+
 # -----------------------------------------
 # main program of the script (entry point).
 # -----------------------------------------
@@ -148,18 +190,18 @@ do
 	then
 		install_zsh;
 
-#	elif [ "$GIT_CRED" == "\033[0;31m-NOT FOUND-\033[0m" ];
-#		then
-#			echo "GIT CREDENTIAL HELPER NOT FOUND"
+	elif [ "$GIT_STAT" == "NOT FOUND" ];
+	then
+		install_git;
 
 	else
-		echo " Dear user, all the TOOLS are already installed.         ";
-		echo "                                                         ";
-		echo " **IMPORTANT: Zsh program will require your              ";
-		echo " **authorization after this program END.                 ";
-		echo "                                                         ";
-		echo " Do you want to EXIT now ? --- (y/n)                     ";
-		echo "*********************************************************";
+		echo 	" Dear user, all the TOOLS are already installed.         ";
+		echo 	"                                                         ";
+		echo -e "   ${CYAN}*** IMPORTANT: Zsh program will require your ***${NC}     ";
+		echo -e "   ${CYAN}*** authorization after this script ENDs. ***${NC}        ";
+		echo 	"                                                         ";
+		echo 	" Do you want to EXIT now ? --- (y/n)                     ";
+		echo 	"*********************************************************";
 		read -r ENDING
 	fi
 	prog_validator;
