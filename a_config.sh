@@ -379,9 +379,14 @@ install_vim()
 			sudo apt-get update;
 			sudo apt-get install vim;
 			wait;
+			git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+			wait;
+			sudo rm "$HOME/.vimrc";
+			ln -s "$HOME/config_env/.vimrc" "$HOME/.vimrc";
+			vim +PluginInstall +qall;
 			clear;
 			echo "**************************************";
-			echo "          MYSQL Installing...         ";
+			echo "           VIM Installing...          ";
 			echo "**************************************";
 			sleep 2;
 		elif [ "$VAR1_VIM" == "n" ];
