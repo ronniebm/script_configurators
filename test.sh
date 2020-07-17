@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-clear
 PROGRAM_LIST=(
 	betty
 	zsh

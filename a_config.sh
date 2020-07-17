@@ -1,18 +1,5 @@
 #!/usr/bin/env bash
-VAR_LIST = ()
-LIST_PROGRAMS = (
-	betty
-	zsh
-	git
-	shellcheck
-	valgrind
-	mysql
-	vim
-)
 
-for i in ${LIST_VAR[@]}
-do
-VAR_list +=($(echo "$i_stat" | tr [a-z] [A-Z])
 # function that handles command-not-found message.
 command_not_found_handle()
 {
@@ -174,7 +161,7 @@ prog_validator()
 	fi
 }
 
-# 1. Betty "C" code style install proccess.                                            
+# 1. Betty "C" code style install proccess.
 install_betty()
 {
 	if [ $BETTY_SKIP = 0 ];
@@ -203,14 +190,14 @@ install_betty()
 	fi
 }
 
-# 2. Zsh Oh My ZSH shell.                                            
+# 2. Zsh Oh My ZSH shell.
 install_zsh()
 {
 	if [ $ZSH_SKIP = 0 ];
 	then
 		echo '2. Install Zsh (Oh my Zsh shell) ? (y/n)';
 		read -r VAR1_ZSH;
-		if [ "$VAR1_ZSH" == "y" ]; 
+		if [ "$VAR1_ZSH" == "y" ];
 		then
 			sudo apt-get update;
 			sudo apt-get install zsh;
@@ -287,7 +274,7 @@ install_git_credentials()
 			# ----------------------------------------------------------------
 			echo "https://$GIT_USER:$GIT_PASSW@github.com" >> $HOME/.git-credentials
 			return;
-			
+
 			clear;
 			echo "**************************************";
 			echo "   Github Credentials installing...   ";
@@ -308,7 +295,7 @@ install_shellcheck()
 	then
 		echo '5. Install shellcheck script validator ? (y/n)';
 		read -r VAR1_SHELLCHECK;
-		if [ "$VAR1_SHELLCHECK" == "y" ]; 
+		if [ "$VAR1_SHELLCHECK" == "y" ];
 		then
 			sudo apt-get update;
 			sudo apt-get install shellcheck;
@@ -333,7 +320,7 @@ install_valgrind()
 	then
 		echo '6. Install valgrind memory tester ? (y/n)';
 		read -r VAR1_VALGRIND;
-		if [ "$VAR1_VALGRIND" == "y" ]; 
+		if [ "$VAR1_VALGRIND" == "y" ];
 		then
 			sudo apt-get update;
 			sudo apt-get install valgrind;
