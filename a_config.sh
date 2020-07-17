@@ -382,7 +382,7 @@ install_vim()
 			git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 			wait;
 			sudo rm "$HOME/.vimrc";
-			ln -s "$HOME/config_env/.vimrc" "$HOME/.vimrc";
+			ln -s "assets/.vimrc" "$HOME/.vimrc";
 			vim +PluginInstall +qall;
 			clear;
 			echo "**************************************";
