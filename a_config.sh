@@ -47,7 +47,7 @@ skip_flags()
 	VIM_SKIP=0; EMACS_SKIP=0;
 }
 
-# installed programs checker.                                            
+# installed programs checker.
 prog_validator()
 {
 	FILE1=/$HOME/.git-credentials
@@ -144,21 +144,22 @@ prog_validator()
 		fi
 	fi
 	# -------------------------------
-	CHECK=$(mysql --version);
-	if [ $MYSQL_SKIP = 0 ];
+	CHECK=$(vim --version);
+	wait;
+	if [ $VIM_SKIP = 0 ];
 	then
-		if [[ "$CHECK" == *"Ver"* ]];
+		if [[ "$CHECK" == *"compiled"* ]];
 		then
-			MYSQL_STAT="INSTALLED"
-			MYSQL_P="${GREEN}INSTALLED${NC}"
+			VIM_STAT="INSTALLED"
+			VIM_P="${GREEN}INSTALLED${NC}"
 		else
-			MYSQL_STAT="NOT FOUND"
-			MYSQL_P="${RED}NOT FOUND${NC}"
+			VIM_STAT="NOT FOUND"
+			VIM_P="${RED}NOT FOUND${NC}"
 		fi
 	fi
 }
 
-# 1. Betty "C" code style install proccess.                                            
+# 1. Betty "C" code style install proccess.
 install_betty()
 {
 	if [ $BETTY_SKIP = 0 ];
@@ -187,14 +188,14 @@ install_betty()
 	fi
 }
 
-# 2. Zsh Oh My ZSH shell.                                            
+# 2. Zsh Oh My ZSH shell.
 install_zsh()
 {
 	if [ $ZSH_SKIP = 0 ];
 	then
 		echo '2. Install Zsh (Oh my Zsh shell) ? (y/n)';
 		read -r VAR1_ZSH;
-		if [ "$VAR1_ZSH" == "y" ]; 
+		if [ "$VAR1_ZSH" == "y" ];
 		then
 			sudo apt-get update;
 			sudo apt-get install zsh;
@@ -215,13 +216,14 @@ install_zsh()
 	fi
 }
 
+# 3. git installation.
 install_git()
 {
 	if [ $GIT_SKIP = 0 ];
 	then
 		echo '3. Install git ? (y/n)';
 		read -r VAR1_GIT;
-		if [ "$VAR1_GIT" == "y" ]; 
+		if [ "$VAR1_GIT" == "y" ];
 		then
 			sudo apt-get update;
 			sudo apt-get install git;
@@ -240,13 +242,14 @@ install_git()
 	fi
 }
 
+# 4. git_credentials installation.
 install_git_credentials()
 {
 	if [ $GITCRED_SKIP = 0 ];
 	then
 		echo '4. Install git credential helper ? (y/n)';
 		read -r VAR1_GITCRED;
-		if [ "$VAR1_GITCRED" == "y" ]; 
+		if [ "$VAR1_GITCRED" == "y" ];
 		then
 			echo "";
 			echo -e "*Please write your github ${GREEN}USER NAME${NC} account:";
@@ -271,7 +274,7 @@ install_git_credentials()
 			# ----------------------------------------------------------------
 			echo "https://$GIT_USER:$GIT_PASSW@github.com" >> $HOME/.git-credentials
 			return;
-			
+
 			clear;
 			echo "**************************************";
 			echo "   Github Credentials installing...   ";
@@ -286,13 +289,14 @@ install_git_credentials()
 	fi
 }
 
+# 5. shellcheck installation.
 install_shellcheck()
 {
 	if [ $SHELLCHECK_SKIP = 0 ];
 	then
 		echo '5. Install shellcheck script validator ? (y/n)';
 		read -r VAR1_SHELLCHECK;
-		if [ "$VAR1_SHELLCHECK" == "y" ]; 
+		if [ "$VAR1_SHELLCHECK" == "y" ];
 		then
 			sudo apt-get update;
 			sudo apt-get install shellcheck;
@@ -311,13 +315,14 @@ install_shellcheck()
 	fi
 }
 
+# 6. valgrind installation.
 install_valgrind()
 {
 	if [ $VALGRIND_SKIP = 0 ];
 	then
 		echo '6. Install valgrind memory tester ? (y/n)';
 		read -r VAR1_VALGRIND;
-		if [ "$VAR1_VALGRIND" == "y" ]; 
+		if [ "$VAR1_VALGRIND" == "y" ];
 		then
 			sudo apt-get update;
 			sudo apt-get install valgrind;
@@ -336,13 +341,14 @@ install_valgrind()
 	fi
 }
 
+# 7. MYSQL installation.
 install_mysql()
 {
 	if [ $MYSQL_SKIP = 0 ];
 	then
 		echo '7. Install mysql ? (y/n)';
 		read -r VAR1_MYSQL;
-		if [ "$VAR1_MYSQL" == "y" ]; 
+		if [ "$VAR1_MYSQL" == "y" ];
 		then
 			sudo apt-get update;
 			sudo apt-get install mysql-server;
@@ -357,6 +363,32 @@ install_mysql()
 			MYSQL_SKIP=1;
 			MYSQL_STAT="SKIPPED"
 			MYSQL_P="${CYAN} SKIPPED ${NC}"
+		fi
+	fi
+}
+
+# 8. VIM installation.
+install_vim()
+{
+	if [ $VIM_SKIP = 0 ];
+	then
+		echo '8. Install VIM [customized] ? (y/n)';
+		read -r VAR1_VIM;
+		if [ "$VAR1_VIM" == "y" ];
+		then
+			sudo apt-get update;
+			sudo apt-get install vim;
+			wait;
+			clear;
+			echo "**************************************";
+			echo "          MYSQL Installing...         ";
+			echo "**************************************";
+			sleep 2;
+		elif [ "$VAR1_VIM" == "n" ];
+		then
+			VIM_SKIP=1;
+			VIM_STAT="SKIPPED"
+			VIM_P="${CYAN} SKIPPED ${NC}"
 		fi
 	fi
 }
@@ -399,6 +431,10 @@ do
 	elif [ "$MYSQL_STAT" == "NOT FOUND" ];
 	then
 		install_mysql;
+
+	elif [ "$VIM_STAT" == "NOT FOUND" ];
+	then
+		install_vim;
 
 	else
 		echo 	" Dear user, all the TOOLS are already installed.         ";
