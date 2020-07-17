@@ -1,5 +1,18 @@
 #!/usr/bin/env bash
+VAR_LIST = ()
+LIST_PROGRAMS = (
+	betty
+	zsh
+	git
+	shellcheck
+	valgrind
+	mysql
+	vim
+)
 
+for i in ${LIST_VAR[@]}
+do
+VAR_list +=($(echo "$i_stat" | tr [a-z] [A-Z])
 # function that handles command-not-found message.
 command_not_found_handle()
 {
@@ -47,17 +60,20 @@ skip_flags()
 	VIM_SKIP=0; EMACS_SKIP=0;
 }
 
-# installed programs checker.                                            
+# installed programs checker.
 prog_validator()
 {
 	FILE1=/$HOME/.git-credentials
 	COUNTER=0;
+	LIST_VAR = LIST_PROGRAMS[:]
 
+
+	for program in "${LIST_PROGRAMS[@]}"
 	# -------------------------------
-	CHECK=$(betty --version);
+	CHECK=$("$program" --version);
 	if [ $BETTY_SKIP = 0 ];
 	then
-		if [[ "$CHECK" == *"version"* ]];
+		if [ -e "$(which "$program")" ];
 		then
 			BETTY_STAT="INSTALLED";
 			BETTY_P="${GREEN}INSTALLED${NC}";
