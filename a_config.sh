@@ -176,7 +176,8 @@ install_betty()
 			echo 'preparing for installation proccess. wait !';
 			echo '*******************************************';
 			sleep 2;
-			sudo $HOME/Betty/install.sh;
+			cd $HOME/Betty
+			sudo install.sh;
 			sudo cp assets/betty /bin/;
 		elif [ "$VAR1_BETTY" == "n" ];
 		then
