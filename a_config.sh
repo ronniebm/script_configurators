@@ -487,3 +487,13 @@ if [ -f "$PWD/ohmyzsh/tools/install.sh" ]
 then
     sh $PWD/ohmyzsh/tools/install.sh;
 fi
+wait;
+git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
+wait;
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+wait;
+
+if [ -f "$HOME/.zshrc" ]
+then
+	sed -i "s/ plugins=(git)/ plugins=(git zsh-autosuggestions zsh-syntax-highlighting colored-man-pages)/" $HOME/.zshrc;
+fi
