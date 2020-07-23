@@ -57,7 +57,7 @@ prog_validator()
 	CHECK=$(betty --version);
 	if [ $BETTY_SKIP = 0 ];
 	then
-		if [[ "$CHECK" == *"version"* ]];
+		if [ -e "$(which "betty")" ];
 		then
 			BETTY_STAT="INSTALLED";
 			BETTY_P="${GREEN}INSTALLED${NC}";
@@ -70,7 +70,7 @@ prog_validator()
 	CHECK=$(zsh --version);
 	if [ $ZSH_SKIP = 0 ];
 	then
-		if [[ "$CHECK" == *"ubuntu"* ]];
+		if [ -e "$(which "zsh")" ];
 		then
 			ZSH_STAT="INSTALLED";
 			ZSH_P="${GREEN}INSTALLED${NC}";
@@ -83,7 +83,7 @@ prog_validator()
 	CHECK=$(git --version);
 	if [ $GIT_SKIP = 0 ];
 	then
-		if [[ "$CHECK" == *"version"* ]];
+		if [ -e "$(which "git")" ];
 		then
 			GIT_STAT="INSTALLED"
 			GIT_P="${GREEN}INSTALLED${NC}"
@@ -108,7 +108,7 @@ prog_validator()
 	CHECK=$(shellcheck --version);
 	if [ $SHELLCHECK_SKIP = 0 ];
 	then
-		if [[ "$CHECK" == *"version"* ]];
+		if [ -e "$(which "shellcheck")" ];
 		then
 			SHELLCHECK_STAT="INSTALLED"
 			SHELLCHECK_P="${GREEN}INSTALLED${NC}"
@@ -121,7 +121,7 @@ prog_validator()
 	CHECK=$(valgrind --version);
 	if [ $VALGRIND_SKIP = 0 ];
 	then
-		if [[ "$CHECK" == *"valgrind"* ]];
+		if [ -e "$(which "valgrind")" ];
 		then
 			VALGRIND_STAT="INSTALLED"
 			VALGRIND_P="${GREEN}INSTALLED${NC}"
@@ -134,7 +134,7 @@ prog_validator()
 	CHECK=$(mysql --version);
 	if [ $MYSQL_SKIP = 0 ];
 	then
-		if [[ "$CHECK" == *"Ver"* ]];
+		if [ -e "$(which "mysql")" ];
 		then
 			MYSQL_STAT="INSTALLED"
 			MYSQL_P="${GREEN}INSTALLED${NC}"
@@ -148,7 +148,7 @@ prog_validator()
 	wait;
 	if [ $VIM_SKIP = 0 ];
 	then
-		if [[ "$CHECK" == *"compiled"* ]];
+		if [ -e "$(which "vim")" ];
 		then
 			VIM_STAT="INSTALLED"
 			VIM_P="${GREEN}INSTALLED${NC}"
