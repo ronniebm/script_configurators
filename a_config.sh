@@ -191,7 +191,7 @@ install_betty()
 			sleep 2;
 			cd $PWD/Betty;
 			source ./install.sh;
-			sudo -y cp assets/betty /bin/;
+			sudo -y cp assets/scripts_config/betty /bin/;
 			rm -rf $PWD/Betty;
 		elif [ "$VAR1_BETTY" == "n" ];
 		then
@@ -483,17 +483,15 @@ do
 done
 cls;
 
-if [ -f "$PWD/ohmyzsh/tools/install.sh" ]
-then
-    sh $PWD/ohmyzsh/tools/install.sh;
-fi
+exit;
+
 wait;
 git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
 wait;
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
-wait;
 
-if [ -f "$HOME/.zshrc" ]
+
+if [ -f "$PWD/ohmyzsh/tools/install.sh" ]
 then
-	sed -i "s/ plugins=(git)/ plugins=(git zsh-autosuggestions zsh-syntax-highlighting colored-man-pages)/" $HOME/.zshrc;
+    sh $PWD/ohmyzsh/tools/install.sh;
 fi
