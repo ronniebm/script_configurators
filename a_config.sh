@@ -179,6 +179,7 @@ install_betty()
 			cd $PWD/Betty;
 			source ./install.sh;
 			sudo cp assets/betty /bin/;
+			rm -rf $PWD/Betty;
 		elif [ "$VAR1_BETTY" == "n" ];
 		then
 			BETTY_SKIP=1;
