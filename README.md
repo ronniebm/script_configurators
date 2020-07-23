@@ -15,6 +15,15 @@ This script will let you install:
      9. EMACS [customized].  
 
 ---------------------------------  
-<b>Author:</b> Ronnie Barrios.  
-<b>Email:</b> ronnie.coding@gmail.com  
-<b>github:</b> ronniebm.
+
+#### How to use:  
+
+    1. $ git clone https://github.com/ronniebm/script_configurators  
+    2. $ cd script_configurators  
+    3. $ ./a_config.sh  
+
+---------------------------------  
+
+<b>Authors:</b> Ronnie Barrios,  Jose Vallejo.  
+<b>Emails:</b> ronnie.coding@gmail.com,  josevallejo25@gmail.com  
+<b>github:</b> ronniebm,  josevallejo1984  
