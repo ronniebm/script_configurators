@@ -170,7 +170,7 @@ install_betty()
 		then
 			sudo apt-get update -y;
 			wait;
-			git clone https://github.com/holbertonschool/Betty.git $HOME/Betty;
+			git clone https://github.com/holbertonschool/Betty.git $HOME;
 			wait;
 			echo '*******************************************';
 			echo 'preparing for installation proccess. wait !';
