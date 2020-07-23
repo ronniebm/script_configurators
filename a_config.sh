@@ -157,6 +157,20 @@ prog_validator()
 			VIM_P="${RED}NOT FOUND${NC}"
 		fi
 	fi
+	# -------------------------------
+	CHECK=$(emacs --version);
+	wait;
+	if [ $EMACS_SKIP = 0 ];
+	then
+		if [ -e "$(which "emacs")" ];
+		then
+			EMACS_STAT="INSTALLED"
+			EMACS_P="${GREEN}INSTALLED${NC}"
+		else
+			EMACS_STAT="NOT FOUND"
+			EMACS_P="${RED}NOT FOUND${NC}"
+		fi
+	fi
 }
 
 # 0. SUDO Install.
@@ -426,6 +440,26 @@ install_vim()
 	fi
 }
 
+# 9. EMACS installation.
+install_emacs()
+{
+	if [ $EMACS_SKIP = 0 ];
+	then
+		echo '9. Install EMACS [customized] ? (y/n)';
+		read -r VAR1_EMACS;
+		if [ "$VAR1_EMACS" == "y" ];
+		then
+			install_sudo;
+			wait;
+			sudo apt-get update -y;
+			sudo apt-get install -y emacs;
+			wait;
+			sh $PWD/assets/scripts_config/emacs.sh;
+			wait;
+		fi
+	fi
+}
+
 # -----------------------------------------
 # main program of the script (entry point).
 # -----------------------------------------
@@ -469,6 +503,10 @@ do
 	then
 		install_vim;
 
+	elif [ "$EMACS_STAT" == "NOT FOUND" ];
+	then
+		install_emacs;
+
 	else
 		echo 	" Dear user, all the TOOLS are already installed.         ";
 		echo 	"                                                         ";
@@ -482,15 +520,6 @@ do
 	prog_validator;
 done
 cls;
-
-exit;
-
-wait;
-git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
-wait;
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
-
-
 if [ -f "$PWD/ohmyzsh/tools/install.sh" ]
 then
     sh $PWD/ohmyzsh/tools/install.sh;
