@@ -19,8 +19,8 @@ echo -e	'*      \033[0;32mRonnie Barrios\033[0m  &  \033[0;32mJose Vallejo\033[0
 echo 	'* ===================================================== *';
 echo -e	'* use it by your OWN RISK, tested: \033[1;35mUBUNTU: 14, 18, 20.\033[0m  *';
 echo 	'*                                                       *';
-echo -e	'* \033[1;35mGithub:\033[0m ronniebm,         \033[1;35mE:\033[0m ronnie.coding@gmail.com  *';
-echo -e	'* \033[1;35mGithub:\033[0m josevallejo1984,  \033[1;35mE:\033[0m josevallejo25@gmail.com  *';
+echo -e	'* \033[1;35mGithub:\033[0m ronniebm          \033[1;35mE:\033[0m ronnie.coding@gmail.com  *';
+echo -e	'* \033[1;35mGithub:\033[0m josevallejo1984   \033[1;35mE:\033[0m josevallejo25@gmail.com  *';
 echo 	'* ----------------------------------------------------- *';
 echo 	'*                                                       *';
 #echo 	'*  0. Automatic Installation                            *';
