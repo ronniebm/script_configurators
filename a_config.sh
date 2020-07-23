@@ -159,6 +159,17 @@ prog_validator()
 	fi
 }
 
+# 0. SUDO Install.
+install_sudo()
+{
+	if [ -e "$(which "sudo")" ];
+	then
+		return;
+	else
+		apt install sudo;
+	fi
+}
+
 # 1. Betty "C" code style install proccess.
 install_betty()
 {
@@ -168,6 +179,8 @@ install_betty()
 		read -r VAR1_BETTY;
 		if [ "$VAR1_BETTY" == "y" ];
 		then
+			install_sudo;
+			wait;
 			sudo apt-get update -y;
 			wait;
 			git clone https://github.com/holbertonschool/Betty.git;
@@ -178,7 +191,7 @@ install_betty()
 			sleep 2;
 			cd $PWD/Betty;
 			source ./install.sh;
-			sudo cp assets/betty /bin/;
+			sudo -y cp assets/betty /bin/;
 			rm -rf $PWD/Betty;
 		elif [ "$VAR1_BETTY" == "n" ];
 		then
@@ -198,11 +211,13 @@ install_zsh()
 		read -r VAR1_ZSH;
 		if [ "$VAR1_ZSH" == "y" ];
 		then
-			sudo apt-get update;
-			sudo apt-get install zsh;
+			install_sudo;
+			wait;
+			sudo apt-get update -y;
+			sudo apt-get install -y zsh;
 			wait
 			git clone https://github.com/ohmyzsh/ohmyzsh.git;
-			chmod u+x $home/.oh-my-zsh/tools/install.sh;
+			chmod u+x $PWD/oh-my-zsh/tools/install.sh;
 			clear;
 			echo "**************************************";
 			echo "  Zsh Shell successfully Installed... ";
@@ -226,8 +241,10 @@ install_git()
 		read -r VAR1_GIT;
 		if [ "$VAR1_GIT" == "y" ];
 		then
-			sudo apt-get update;
-			sudo apt-get install git;
+			install_sudo;
+			wait;
+			sudo apt-get update -y;
+			sudo apt-get install -y git;
 			wait;
 			clear;
 			echo "**************************************";
@@ -252,6 +269,8 @@ install_git_credentials()
 		read -r VAR1_GITCRED;
 		if [ "$VAR1_GITCRED" == "y" ];
 		then
+			install_sudo;
+			wait;
 			echo "";
 			echo -e "*Please write your github ${GREEN}USER NAME${NC} account:";
 			read -r GIT_USER;
@@ -299,8 +318,10 @@ install_shellcheck()
 		read -r VAR1_SHELLCHECK;
 		if [ "$VAR1_SHELLCHECK" == "y" ];
 		then
-			sudo apt-get update;
-			sudo apt-get install shellcheck;
+			install_sudo;
+			wait;
+			sudo apt-get update -y;
+			sudo apt-get install -y shellcheck;
 			wait;
 			clear;
 			echo "**************************************";
@@ -325,8 +346,10 @@ install_valgrind()
 		read -r VAR1_VALGRIND;
 		if [ "$VAR1_VALGRIND" == "y" ];
 		then
-			sudo apt-get update;
-			sudo apt-get install valgrind;
+			install_sudo;
+			wait;
+			sudo apt-get update -y;
+			sudo apt-get install -y valgrind;
 			wait;
 			clear;
 			echo "**************************************";
@@ -351,8 +374,10 @@ install_mysql()
 		read -r VAR1_MYSQL;
 		if [ "$VAR1_MYSQL" == "y" ];
 		then
-			sudo apt-get update;
-			sudo apt-get install mysql-server;
+			install_sudo;
+			wait;
+			sudo apt-get update -y;
+			sudo apt-get install -y mysql-server;
 			wait;
 			clear;
 			echo "**************************************";
@@ -377,8 +402,10 @@ install_vim()
 		read -r VAR1_VIM;
 		if [ "$VAR1_VIM" == "y" ];
 		then
-			sudo apt-get update;
-			sudo apt-get install vim;
+			install_sudo;
+			wait;
+			sudo apt-get update -y;
+			sudo apt-get install -y vim;
 			wait;
 			git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 			wait;
@@ -456,7 +483,7 @@ do
 done
 cls;
 
-if [ -f "ohmyzsh/tools/install.sh" ]
+if [ -f "/ohmyzsh/tools/install.sh" ]
 then
-    sh ohmyzsh/tools/install.sh;
+    sh /ohmyzsh/tools/install.sh;
 fi
