@@ -2,7 +2,7 @@
   
 #### FILES;  "a_config.sh" .
 ---------------------------------
-This script will let you install:  
+This script assistant will let you install:  
 
      1. Betty "C" code style validator.  
      2. Zsh (Oh my Zsh shell).  
@@ -23,6 +23,9 @@ This script will let you install:
     3. $ ./a_config.sh  
 
 ---------------------------------  
+
+#### Menu image:  
+<img scr="assets/images/menu.jpg">
 
 <b>Authors:</b> Ronnie Barrios,  Jose Vallejo.  
 <b>Emails:</b> ronnie.coding@gmail.com,  josevallejo25@gmail.com  
