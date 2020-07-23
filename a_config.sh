@@ -454,4 +454,8 @@ do
 	prog_validator;
 done
 cls;
-sh ohmyzsh/tools/install.sh
+
+if [ -f "ohmyzsh/tools/install.sh" ]
+then
+    sh ohmyzsh/tools/install.sh;
+fi
