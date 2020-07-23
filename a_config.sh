@@ -483,7 +483,7 @@ do
 done
 cls;
 
-if [ -f "/ohmyzsh/tools/install.sh" ]
+if [ -f "$PWD/ohmyzsh/tools/install.sh" ]
 then
-    sh /ohmyzsh/tools/install.sh;
+    sh $PWD/ohmyzsh/tools/install.sh;
 fi
