@@ -1,6 +1,6 @@
 # Script Configurators.  
   
-#### FILES;  "a_config.sh" .
+#### FILE:  "a_config.sh" .
 ---------------------------------
 This script assistant will let you install:  
 
