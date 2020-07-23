@@ -170,14 +170,14 @@ install_betty()
 		then
 			sudo apt-get update -y;
 			wait;
-			git clone https://github.com/holbertonschool/Betty.git $HOME;
+			git clone https://github.com/holbertonschool/Betty.git;
 			wait;
 			echo '*******************************************';
 			echo 'preparing for installation proccess. wait !';
 			echo '*******************************************';
 			sleep 2;
-			cd $HOME/Betty
-			sudo install.sh;
+			cd $PWD/Betty;
+			source ./install.sh;
 			sudo cp assets/betty /bin/;
 		elif [ "$VAR1_BETTY" == "n" ];
 		then
