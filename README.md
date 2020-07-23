@@ -25,7 +25,9 @@ This script assistant will let you install:
 ---------------------------------  
 
 #### Menu image:  
-<img scr="assets/images/menu.jpg">
+![title](assets/images/menu.jpg)  
+
+---------------------------------  
 
 <b>Authors:</b> Ronnie Barrios,  Jose Vallejo.  
 <b>Emails:</b> ronnie.coding@gmail.com,  josevallejo25@gmail.com  
