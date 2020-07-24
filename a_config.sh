@@ -32,7 +32,7 @@ command_not_found_handle()
 return 127;
 }
 
-# user prompt message.
+# ---------user prompt message.------------
 prompt()
 {
 clear;
@@ -50,15 +50,16 @@ echo -e	'* \033[1;35mGithub:\033[0m josevallejo1984   \033[1;35mE:\033[0m joseva
 echo 	'* ----------------------------------------------------- *';
 echo 	'*                                                       *';
 #echo 	'*  0. Automatic Installation                            *';
-echo -e '*  1. betty (C code style validator) ..[ '"$BETTY_P"' ]    *';
-echo -e '*  2. Zsh (Oh my Zsh shell) ...........[ '"$ZSH_P"' ]    *';
-echo -e '*  3. git .............................[ '"$GIT_P"' ]    *';
-echo -e '*  4. git credential helper ...........[ '"$GITCRED_P"' ]    *';
-echo -e	'*  5. shellcheck validator ............[ '"$SHELLCHECK_P"' ]    *';
-echo -e	'*  6. valgrind memory tester ..........[ '"$VALGRIND_P"' ]    *';
-echo -e	'*  7. MYSQL database ..................[ '"$MYSQL_P"' ]    *';
-echo -e	'*  8. VIM   [customized] ..............[ '"$VIM_P"' ]    *';
-echo -e	'*  9. EMACS [customized] ..............[ '"$EMACS_P"' ]    *';
+# ------ Autogenerate prompt -------------------------------------------------
+len=${#PROGRAM_LIST[@]}
+for ((i=0; i<"$len"; i++))
+do
+	tool="${PROGRAM_LIST[i]}"
+	tool_state="${PROMP_DICT["$tool"]}"
+	echo -e "*  "$i"."$tool"\t.......................[ "$tool_state" ]    *";
+
+done
+
 echo 	'*                                                       *';
 echo 	'*********************************************************';
 echo 	'';
@@ -79,133 +80,38 @@ skip_flags()
 }
 
 # installed programs checker.
-prog_validator()
+function prog_validator()
 {
 	FILE1=/$HOME/.git-credentials
-	COUNTER=0;
+	COUNTER=0
+	RED="\033[0;31m"
+	GREEN="\033[0;32m"
+	NC="\033[0m"
+	BETTY_SKIP=0
+	len=${#PROGRAM_LIST[@]}
 
+	for ((i=0; i<"$len"; i++))
+	do
 	# -------------------------------
-	CHECK=$(betty --version);
-	if [ $BETTY_SKIP = 0 ];
-	then
-		if [ -e "$(which "betty")" ];
+		#CHECK=$("$PROGRAM_LIST[i]" --version);
+		#echo "valor de i es: = $i"
+		if [ $BETTY_SKIP = 0 ];
 		then
-			BETTY_STAT="INSTALLED";
-			BETTY_P="${GREEN}INSTALLED${NC}";
-		else
-			BETTY_STAT="NOT FOUND";
-			BETTY_P="${RED}NOT FOUND${NC}";
+			if [ -e "$(which "${PROGRAM_LIST[i]}")" ];
+			then
+				CTRL_DICT["${PROGRAM_LIST[i]}"]="INSTALLED";
+				PROMP_DICT["${PROGRAM_LIST[i]}"]="${GREEN}INSTALLED${NC}";
+
+			else
+				CTRL_DICT["${PROGRAM_LIST[i]}"]="NOT FOUND";
+				PROMP_DICT["${PROGRAM_LIST[i]}"]="${RED}NOT FOUND${NC}";
+			fi
 		fi
-	fi
-	# -------------------------------
-	CHECK=$(zsh --version);
-	if [ $ZSH_SKIP = 0 ];
-	then
-		if [ -e "$(which "zsh")" ];
-		then
-			ZSH_STAT="INSTALLED";
-			ZSH_P="${GREEN}INSTALLED${NC}";
-		else
-			ZSH_STAT="NOT FOUND"
-			ZSH_P="${RED}NOT FOUND${NC}"
-		fi
-	fi
-	# -------------------------------
-	CHECK=$(git --version);
-	if [ $GIT_SKIP = 0 ];
-	then
-		if [ -e "$(which "git")" ];
-		then
-			GIT_STAT="INSTALLED"
-			GIT_P="${GREEN}INSTALLED${NC}"
-		else
-			GIT_STAT="NOT FOUND"
-			GIT_P="${RED}NOT FOUND${NC}"
-		fi
-	fi
-	# ------------------------------
-	if [ $GITCRED_SKIP = 0 ];
-	then
-		if test -f "$FILE1";
-		then
-			GITCRED_STAT="INSTALLED"
-			GITCRED_P="${GREEN}INSTALLED${NC}"
-		else
-			GITCRED_STAT="NOT FOUND"
-			GITCRED_P="${RED}NOT FOUND${NC}"
-		fi
-	fi
-	# -------------------------------
-	CHECK=$(shellcheck --version);
-	if [ $SHELLCHECK_SKIP = 0 ];
-	then
-		if [ -e "$(which "shellcheck")" ];
-		then
-			SHELLCHECK_STAT="INSTALLED"
-			SHELLCHECK_P="${GREEN}INSTALLED${NC}"
-		else
-			SHELLCHECK_STAT="NOT FOUND"
-			SHELLCHECK_P="${RED}NOT FOUND${NC}"
-		fi
-	fi
-	# -------------------------------
-	CHECK=$(valgrind --version);
-	if [ $VALGRIND_SKIP = 0 ];
-	then
-		if [ -e "$(which "valgrind")" ];
-		then
-			VALGRIND_STAT="INSTALLED"
-			VALGRIND_P="${GREEN}INSTALLED${NC}"
-		else
-			VALGRIND_STAT="NOT FOUND"
-			VALGRIND_P="${RED}NOT FOUND${NC}"
-		fi
-	fi
-	# -------------------------------
-	CHECK=$(mysql --version);
-	if [ $MYSQL_SKIP = 0 ];
-	then
-		if [ -e "$(which "mysql")" ];
-		then
-			MYSQL_STAT="INSTALLED"
-			MYSQL_P="${GREEN}INSTALLED${NC}"
-		else
-			MYSQL_STAT="NOT FOUND"
-			MYSQL_P="${RED}NOT FOUND${NC}"
-		fi
-	fi
-	# -------------------------------
-	CHECK=$(vim --version);
-	wait;
-	if [ $VIM_SKIP = 0 ];
-	then
-		if [ -e "$(which "vim")" ];
-		then
-			VIM_STAT="INSTALLED"
-			VIM_P="${GREEN}INSTALLED${NC}"
-		else
-			VIM_STAT="NOT FOUND"
-			VIM_P="${RED}NOT FOUND${NC}"
-		fi
-	fi
-	# -------------------------------
-	CHECK=$(emacs --version);
-	wait;
-	if [ $EMACS_SKIP = 0 ];
-	then
-		if [ -e "$(which "emacs")" ];
-		then
-			EMACS_STAT="INSTALLED"
-			EMACS_P="${GREEN}INSTALLED${NC}"
-		else
-			EMACS_STAT="NOT FOUND"
-			EMACS_P="${RED}NOT FOUND${NC}"
-		fi
-	fi
+	done
 }
 
 # 0. SUDO Install.
-install_sudo()
+function install_sudo()
 {
 	if [ -e "$(which "sudo")" ];
 	then
@@ -216,7 +122,7 @@ install_sudo()
 }
 
 # 1. Betty "C" code style install proccess.
-install_betty()
+function install_betty()
 {
 	if [ $BETTY_SKIP = 0 ];
 	then
@@ -494,14 +400,31 @@ install_emacs()
 # -----------------------------------------
 # main program of the script (entry point).
 # -----------------------------------------
-ENDING="n";
+# ------ Autogenerate prompt -------------------------------------------------
 color_settings;
 skip_flags;
 prog_validator;
-
+prompt
+ENDING="n";
 while [ $ENDING == "n" ];
 do
-	prompt;
+	len=${#PROGRAM_LIST[@]}
+	for ((i=0; i<"$len"; i++))
+	do
+		tool="${PROGRAM_LIST[i]}"
+		tool_stat="${CTRL_DICT["$tool"]}"
+		echo "$tool_stat"
+		if [ "$tool_stat" == "NOT FOUND" ]
+		then
+			install_"$tool"
+		fi
+		prompt;
+		prog_validator;
+	done
+done
+ENDING="n";
+while [ $ENDING == "jkn" ];
+do
 	if [ "$BETTY_STAT" == "NOT FOUND" ];
 	then
 		install_betty;
