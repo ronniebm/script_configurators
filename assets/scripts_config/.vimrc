@@ -95,5 +95,5 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-colorscheme vimbrant
+colorscheme molokai_dark
 "let g:indentLine_char = '▌'
