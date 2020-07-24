@@ -22,6 +22,12 @@ This script assistant will let you install:
     2. $ cd script_configurators  
     3. $ ./a_config.sh  
 
+- The script recognizes which programs are installed.
+- Press "y" to install the program you want.
+- Press "n" to SKIP a software installation.
+- You can press CTRL+C to close the script process.
+- If all programs are INSTALLED/SKIPPED, press "y" to exit.
+
 ---------------------------------  
 
 #### Menu image:  
