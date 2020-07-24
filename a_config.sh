@@ -35,34 +35,35 @@ return 127;
 # ---------user prompt message.------------
 prompt()
 {
-clear;
-echo 	'*********************************************************';
-echo	'*   My personal configurator v1.0  - for HOLBIES        *';
-echo 	'*                                                       *';
-echo  '*   Developed by:                                       *';
-echo 	'*                                                       *';
-echo -e	'*      \033[0;32mRonnie Barrios\033[0m  &  \033[0;32mJose Vallejo\033[0m (COLOMBIA)       *';
-echo 	'* ===================================================== *';
-echo -e	'* use it by your OWN RISK, tested: \033[1;35mUBUNTU: 14, 18, 20.\033[0m  *';
-echo 	'*                                                       *';
-echo -e	'* \033[1;35mGithub:\033[0m ronniebm          \033[1;35mE:\033[0m ronnie.coding@gmail.com  *';
-echo -e	'* \033[1;35mGithub:\033[0m josevallejo1984   \033[1;35mE:\033[0m josevallejo25@gmail.com  *';
-echo 	'* ----------------------------------------------------- *';
-echo 	'*                                                       *';
+	clear;
+	echo 	'*********************************************************';
+	echo	'*   My personal configurator v1.0  - for HOLBIES        *';
+	echo 	'*                                                       *';
+	echo  '*   Developed by:                                       *';
+	echo 	'*                                                       *';
+	echo -e	'*      \033[0;32mRonnie Barrios\033[0m  &  \033[0;32mJose Vallejo\033[0m (COLOMBIA)       *';
+	echo 	'* ===================================================== *';
+	echo -e	'* use it by your OWN RISK, tested: \033[1;35mUBUNTU: 14, 18, 20.\033[0m  *';
+	echo 	'*                                                       *';
+	echo -e	'* \033[1;35mGithub:\033[0m ronniebm          \033[1;35mE:\033[0m ronnie.coding@gmail.com  *';
+	echo -e	'* \033[1;35mGithub:\033[0m josevallejo1984   \033[1;35mE:\033[0m josevallejo25@gmail.com  *';
+	echo 	'* ----------------------------------------------------- *';
+	echo 	'*                                                       *';
 #echo 	'*  0. Automatic Installation                            *';
 # ------ Autogenerate prompt -------------------------------------------------
-len=${#PROGRAM_LIST[@]}
-for ((i=0; i<"$len"; i++))
-do
-	tool="${PROGRAM_LIST[i]}"
-	tool_state="${PROMP_DICT["$tool"]}"
-	echo -e "*  "$i"."$tool"\t.......................[ "$tool_state" ]    *";
+	len=${#PROGRAM_LIST[@]}
+	for ((i=0; i<"$len"; i++))
+	do
+		tool="${PROGRAM_LIST[i]}"
+		tool_state="${PROMP_DICT["$tool"]}"
+		echo -e "*  "$i"."$tool"\t.......................[ "$tool_state" ]    *";
 
-done
+	done
 
-echo 	'*                                                       *';
-echo 	'*********************************************************';
-echo 	'';
+	echo 	'*                                                       *';
+	echo 	'*********************************************************';
+	echo 	'';
+	return;
 }
 
 # color settings
@@ -82,32 +83,36 @@ skip_flags()
 # installed programs checker.
 function prog_validator()
 {
+	echo "entrando en prog_validator"
 	FILE1=/$HOME/.git-credentials
 	COUNTER=0
 	RED="\033[0;31m"
 	GREEN="\033[0;32m"
 	NC="\033[0m"
-	BETTY_SKIP=0
 	len=${#PROGRAM_LIST[@]}
 
 	for ((i=0; i<"$len"; i++))
 	do
-	# -------------------------------
-		#CHECK=$("$PROGRAM_LIST[i]" --version);
-		#echo "valor de i es: = $i"
-		if [ $BETTY_SKIP = 0 ];
+		echo "i en prog_validator is "$i" "
+		tool="${PROGRAM_LIST[i]}"
+		tool_stat="${CTRL_DICT["$tool"]}"
+		echo "tool_stat is $tool_stat and tool is $tool"
+		if [ "$tool_stat" != "SKIPPED" ]
 		then
-			if [ -e "$(which "${PROGRAM_LIST[i]}")" ];
+			if [ -e "$(which "$tool")" ];
 			then
-				CTRL_DICT["${PROGRAM_LIST[i]}"]="INSTALLED";
-				PROMP_DICT["${PROGRAM_LIST[i]}"]="${GREEN}INSTALLED${NC}";
+				echo "entrendo en IF prog_validator"
+				CTRL_DICT["$tool"]="INSTALLED";
+				PROMP_DICT["$tool"]="${GREEN}INSTALLED${NC}";
 
 			else
-				CTRL_DICT["${PROGRAM_LIST[i]}"]="NOT FOUND";
-				PROMP_DICT["${PROGRAM_LIST[i]}"]="${RED}NOT FOUND${NC}";
+				echo "entrendo en else prog_validator"
+				CTRL_DICT["$tool"]="NOT FOUND";
+				PROMP_DICT["$tool"]="${RED}NOT FOUND${NC}";
 			fi
 		fi
 	done
+	return;
 }
 
 # 0. SUDO Install.
@@ -124,7 +129,7 @@ function install_sudo()
 # 1. Betty "C" code style install proccess.
 function install_betty()
 {
-	if [ $BETTY_SKIP = 0 ];
+	if [ "${CTRL_DICT["betty"]}" != "SKIPPED" ]
 	then
 		echo '1. Install Betty "C" code style validator ? (y/n)';
 		read -r VAR1_BETTY;
@@ -146,17 +151,17 @@ function install_betty()
 			rm -rf $PWD/Betty;
 		elif [ "$VAR1_BETTY" == "n" ];
 		then
-			BETTY_SKIP=1;
-			BETTY_STAT="SKIPPED";
-			BETTY_P="${CYAN} SKIPPED ${NC}";
+			CTRL_DICT["betty"]="SKIPPED"
+			PROMP_DICT["betty"]="${CYAN} SKIPPED ${NC}";
+			echo "entrando aca a betty install"
 		fi
 	fi
 }
 
 # 2. Zsh Oh My ZSH shell.
-install_zsh()
+function install_zsh()
 {
-	if [ $ZSH_SKIP = 0 ];
+	if [ "${CTR_DICT["zsh"]}" != "SKIPPED" ];
 	then
 		echo '2. Install Zsh (Oh my Zsh shell) ? (y/n)';
 		read -r VAR1_ZSH;
@@ -176,17 +181,16 @@ install_zsh()
 			sleep 2;
 		elif [ "$VAR1_ZSH" == "n" ];
 		then
-			ZSH_SKIP=1;
-			ZSH_STAT="SKIPPED";
-			ZSH_P="${CYAN} SKIPPED ${NC}"
+			CTRL_DICT["zsh"]="SKIPPED"
+			PROMP_DICT["zsh"]="${CYAN} SKIPPED ${NC}";
 		fi
 	fi
 }
 
 # 3. git installation.
-install_git()
+function install_git()
 {
-	if [ $GIT_SKIP = 0 ];
+	if [ "${CTRL_DICT["git"]}" != "SKIPPED" ];
 	then
 		echo '3. Install git ? (y/n)';
 		read -r VAR1_GIT;
@@ -204,15 +208,14 @@ install_git()
 			sleep 2;
 		elif [ "$VAR1_GIT" == "n" ];
 		then
-			GIT_SKIP=1;
-			GIT_STAT="SKIPPED";
-			GIT_P="${CYAN} SKIPPED ${NC}"
+			CTRL_DICT["git"]="SKIPPED"
+			PROMP_DICT["git"]="${CYAN} SKIPPED ${NC}";
 		fi
 	fi
 }
 
 # 4. git_credentials installation.
-install_git_credentials()
+function install_git_credentials()
 {
 	if [ $GITCRED_SKIP = 0 ];
 	then
@@ -261,9 +264,9 @@ install_git_credentials()
 }
 
 # 5. shellcheck installation.
-install_shellcheck()
+function install_shellcheck()
 {
-	if [ $SHELLCHECK_SKIP = 0 ];
+	if [ "${CTRL_DICT["shellcheck"]}" != "SKIPPED" ];
 	then
 		echo '5. Install shellcheck script validator ? (y/n)';
 		read -r VAR1_SHELLCHECK;
@@ -281,17 +284,16 @@ install_shellcheck()
 			sleep 2;
 		elif [ "$VAR1_SHELLCHECK" == "n" ];
 		then
-			SHELLCHECK_SKIP=1;
-			SHELLCHECK_STAT="SKIPPED";
-			SHELLCHECK_P="${CYAN} SKIPPED ${NC}"
+			CTRL_DICT["shellcheck"]="SKIPPED"
+			PROMP_DICT["shellcheck"]="${CYAN} SKIPPED ${NC}";
 		fi
 	fi
 }
 
 # 6. valgrind installation.
-install_valgrind()
+function install_valgrind()
 {
-	if [ $VALGRIND_SKIP = 0 ];
+	if [ "${CTRL_DICT["valgrind"]}" != "SKIPPED" ];
 	then
 		echo '6. Install valgrind memory tester ? (y/n)';
 		read -r VAR1_VALGRIND;
@@ -309,17 +311,16 @@ install_valgrind()
 			sleep 2;
 		elif [ "$VAR1_VALGRIND" == "n" ];
 		then
-			VALGRIND_SKIP=1;
-			VALGRIND_STAT="SKIPPED"
-			VALGRIND_P="${CYAN} SKIPPED ${NC}"
+			CTRL_DICT["valgrind"]="SKIPPED"
+			PROMP_DICT["valgrind"]="${CYAN} SKIPPED ${NC}";
 		fi
 	fi
 }
 
 # 7. MYSQL installation.
-install_mysql()
+function install_mysql()
 {
-	if [ $MYSQL_SKIP = 0 ];
+	if [ "${CTRL_DICT["mysql"]}" != "SKIPPED" ];
 	then
 		echo '7. Install mysql ? (y/n)';
 		read -r VAR1_MYSQL;
@@ -337,17 +338,16 @@ install_mysql()
 			sleep 2;
 		elif [ "$VAR1_MYSQL" == "n" ];
 		then
-			MYSQL_SKIP=1;
-			MYSQL_STAT="SKIPPED"
-			MYSQL_P="${CYAN} SKIPPED ${NC}"
+			CTRL_DICT["mysql"]="SKIPPED"
+			PROMP_DICT["mysql"]="${CYAN} SKIPPED ${NC}";
 		fi
 	fi
 }
 
 # 8. VIM installation.
-install_vim()
+function install_vim()
 {
-	if [ $VIM_SKIP = 0 ];
+	if [ "${CTRL_DICT["vim"]}" != 0 ];
 	then
 		echo '8. Install VIM [customized] ? (y/n)';
 		read -r VAR1_VIM;
@@ -370,15 +370,14 @@ install_vim()
 			sleep 2;
 		elif [ "$VAR1_VIM" == "n" ];
 		then
-			VIM_SKIP=1;
-			VIM_STAT="SKIPPED"
-			VIM_P="${CYAN} SKIPPED ${NC}"
+			CTRL_DICT["vim"]="SKIPPED"
+			PROMP_DICT["vim"]="${CYAN} SKIPPED ${NC}";
 		fi
 	fi
 }
 
 # 9. EMACS installation.
-install_emacs()
+function install_emacs()
 {
 	if [ $EMACS_SKIP = 0 ];
 	then
@@ -402,77 +401,46 @@ install_emacs()
 # -----------------------------------------
 # ------ Autogenerate prompt -------------------------------------------------
 color_settings;
-skip_flags;
+#/skip_flags;
 prog_validator;
 prompt
+
+len="${#PROGRAM_LIST[@]}"
+
 ENDING="n";
-while [ $ENDING == "n" ];
+while [ "$ENDING" == "n" ];
 do
-	len=${#PROGRAM_LIST[@]}
 	for ((i=0; i<"$len"; i++))
 	do
-		tool="${PROGRAM_LIST[i]}"
+		#prog_validator
+		echo "valor de i es = to $i y len es $len"
+		tool="${PROGRAM_LIST["$i"]}"
 		tool_stat="${CTRL_DICT["$tool"]}"
 		echo "$tool_stat"
+		echo "$tool"
 		if [ "$tool_stat" == "NOT FOUND" ]
 		then
 			install_"$tool"
+			echo "return to call funtion"
 		fi
+		break
+	done
 		prompt;
 		prog_validator;
-	done
 done
 ENDING="n";
-while [ $ENDING == "jkn" ];
+while [ "$ENDING" == "n" ];
 do
-	if [ "$BETTY_STAT" == "NOT FOUND" ];
-	then
-		install_betty;
-
-	elif [ "$ZSH_STAT" == "NOT FOUND" ];
-	then
-		install_zsh;
-
-	elif [ "$GIT_STAT" == "NOT FOUND" ];
-	then
-		install_git;
-
-	elif [ "$GITCRED_STAT" == "NOT FOUND" ];
-	then
-		install_git_credentials;
-
-	elif [ "$SHELLCHECK_STAT" == "NOT FOUND" ];
-	then
-		install_shellcheck;
-
-	elif [ "$VALGRIND_STAT" == "NOT FOUND" ];
-	then
-		install_valgrind;
-
-	elif [ "$MYSQL_STAT" == "NOT FOUND" ];
-	then
-		install_mysql;
-
-	elif [ "$VIM_STAT" == "NOT FOUND" ];
-	then
-		install_vim;
-
-	elif [ "$EMACS_STAT" == "NOT FOUND" ];
-	then
-		install_emacs;
-
-	else
-		echo 	" Dear user, all the TOOLS are already installed.         ";
-		echo 	"                                                         ";
-		echo -e "   ${CYAN}*** IMPORTANT: Zsh program will require your ***${NC}     ";
-		echo -e "   ${CYAN}*** authorization after this script ENDs. ***${NC}        ";
-		echo 	"                                                         ";
-		echo 	" Do you want to EXIT now ? --- (y/n)                     ";
-		echo 	"*********************************************************";
-		read -r ENDING
-	fi
-	prog_validator;
+	echo 	" Dear user, all the TOOLS are already installed.         ";
+	echo 	"                                                         ";
+	echo -e "   ${CYAN}*** IMPORTANT: Zsh program will require your ***${NC}     ";
+	echo -e "   ${CYAN}*** authorization after this script ENDs. ***${NC}        ";
+	echo 	"                                                         ";
+	echo 	" Do you want to EXIT now ? --- (y/n)                     ";
+	echo 	"*********************************************************";
+	read -r ENDING
 done
+
 cls;
 if [ -f "$PWD/ohmyzsh/tools/install.sh" ]
 then
