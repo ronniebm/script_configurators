@@ -1,18 +1,16 @@
 #!/usr/bin/env bash
 #----- program list for be install in the run script-----------
 PROGRAM_LIST=(
-	betty
 	zsh
+	betty
 	git
 	shellcheck
 	valgrind
 	mysql
 	vim
 	emacs
-	caracoles
-	ereslomeju
 )
-#--------auto generate var promp dict (only for bash v4.0.0 or high------------
+#--------auto generate var prompt dict (only for bash v4.0.0 or high------------
 declare -A PROMP_DICT
 for i in "${PROGRAM_LIST[@]}"
 do
@@ -60,10 +58,9 @@ prompt()
 
 	done
 
-	echo 	'*                                                       *';
-	echo 	'*********************************************************';
-	echo 	'';
-	return;
+	echo '*                                                       *';
+	echo '*********************************************************';
+	echo '';
 }
 
 # color settings
@@ -83,7 +80,6 @@ skip_flags()
 # installed programs checker.
 function prog_validator()
 {
-	echo "entrando en prog_validator"
 	FILE1=/$HOME/.git-credentials
 	COUNTER=0
 	RED="\033[0;31m"
@@ -93,26 +89,20 @@ function prog_validator()
 
 	for ((i=0; i<"$len"; i++))
 	do
-		echo "i en prog_validator is "$i" "
 		tool="${PROGRAM_LIST[i]}"
 		tool_stat="${CTRL_DICT["$tool"]}"
-		echo "tool_stat is $tool_stat and tool is $tool"
 		if [ "$tool_stat" != "SKIPPED" ]
 		then
 			if [ -e "$(which "$tool")" ];
 			then
-				echo "entrendo en IF prog_validator"
 				CTRL_DICT["$tool"]="INSTALLED";
 				PROMP_DICT["$tool"]="${GREEN}INSTALLED${NC}";
-
 			else
-				echo "entrendo en else prog_validator"
 				CTRL_DICT["$tool"]="NOT FOUND";
 				PROMP_DICT["$tool"]="${RED}NOT FOUND${NC}";
 			fi
 		fi
 	done
-	return;
 }
 
 # 0. SUDO Install.
@@ -131,7 +121,7 @@ function install_betty()
 {
 	if [ "${CTRL_DICT["betty"]}" != "SKIPPED" ]
 	then
-		echo '1. Install Betty "C" code style validator ? (y/n)';
+		echo 'Install Betty "C" code style validator ? (y/n)';
 		read -r VAR1_BETTY;
 		if [ "$VAR1_BETTY" == "y" ];
 		then
@@ -153,7 +143,6 @@ function install_betty()
 		then
 			CTRL_DICT["betty"]="SKIPPED"
 			PROMP_DICT["betty"]="${CYAN} SKIPPED ${NC}";
-			echo "entrando aca a betty install"
 		fi
 	fi
 }
@@ -161,9 +150,9 @@ function install_betty()
 # 2. Zsh Oh My ZSH shell.
 function install_zsh()
 {
-	if [ "${CTR_DICT["zsh"]}" != "SKIPPED" ];
+	if [ "${CTRL_DICT["zsh"]}" != "SKIPPED" ];
 	then
-		echo '2. Install Zsh (Oh my Zsh shell) ? (y/n)';
+		echo 'Install Zsh (Oh my Zsh shell) ? (y/n)';
 		read -r VAR1_ZSH;
 		if [ "$VAR1_ZSH" == "y" ];
 		then
@@ -192,7 +181,7 @@ function install_git()
 {
 	if [ "${CTRL_DICT["git"]}" != "SKIPPED" ];
 	then
-		echo '3. Install git ? (y/n)';
+		echo 'Install git ? (y/n)';
 		read -r VAR1_GIT;
 		if [ "$VAR1_GIT" == "y" ];
 		then
@@ -219,7 +208,7 @@ function install_git_credentials()
 {
 	if [ $GITCRED_SKIP = 0 ];
 	then
-		echo '4. Install git credential helper ? (y/n)';
+		echo 'Install git credential helper ? (y/n)';
 		read -r VAR1_GITCRED;
 		if [ "$VAR1_GITCRED" == "y" ];
 		then
@@ -268,7 +257,7 @@ function install_shellcheck()
 {
 	if [ "${CTRL_DICT["shellcheck"]}" != "SKIPPED" ];
 	then
-		echo '5. Install shellcheck script validator ? (y/n)';
+		echo 'Install shellcheck script validator ? (y/n)';
 		read -r VAR1_SHELLCHECK;
 		if [ "$VAR1_SHELLCHECK" == "y" ];
 		then
@@ -295,7 +284,7 @@ function install_valgrind()
 {
 	if [ "${CTRL_DICT["valgrind"]}" != "SKIPPED" ];
 	then
-		echo '6. Install valgrind memory tester ? (y/n)';
+		echo 'Install valgrind memory tester ? (y/n)';
 		read -r VAR1_VALGRIND;
 		if [ "$VAR1_VALGRIND" == "y" ];
 		then
@@ -322,7 +311,7 @@ function install_mysql()
 {
 	if [ "${CTRL_DICT["mysql"]}" != "SKIPPED" ];
 	then
-		echo '7. Install mysql ? (y/n)';
+		echo 'Install mysql ? (y/n)';
 		read -r VAR1_MYSQL;
 		if [ "$VAR1_MYSQL" == "y" ];
 		then
@@ -347,9 +336,9 @@ function install_mysql()
 # 8. VIM installation.
 function install_vim()
 {
-	if [ "${CTRL_DICT["vim"]}" != 0 ];
+	if [ "${CTRL_DICT["vim"]}" != "SKIPPED" ];
 	then
-		echo '8. Install VIM [customized] ? (y/n)';
+		echo 'Install VIM [customized] ? (y/n)';
 		read -r VAR1_VIM;
 		if [ "$VAR1_VIM" == "y" ];
 		then
@@ -361,7 +350,7 @@ function install_vim()
 			git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 			wait;
 			sudo rm "$HOME/.vimrc";
-      sudo cp "assets/scripts_config/.vimrc" "$HOME/.vimrc";
+			sudo cp "assets/scripts_config/.vimrc" "$HOME/.vimrc";
 			sudo vim +PluginInstall +qall;
 			clear;
 			echo "**************************************";
@@ -379,9 +368,9 @@ function install_vim()
 # 9. EMACS installation.
 function install_emacs()
 {
-	if [ $EMACS_SKIP = 0 ];
+	if [ "${CTRL_DICT["emacs"]}" != "SKIPPED" ];
 	then
-		echo '9. Install EMACS [customized] ? (y/n)';
+		echo 'Install EMACS [customized] ? (y/n)';
 		read -r VAR1_EMACS;
 		if [ "$VAR1_EMACS" == "y" ];
 		then
@@ -392,6 +381,10 @@ function install_emacs()
 			wait;
 			sh $PWD/assets/scripts_config/emacs.sh;
 			wait;
+		elif [ "$VAR1_EMACS" == "n" ];
+		then
+			CTRL_DICT["emacs"]="SKIPPED"
+			PROMP_DICT["emacs"]="${CYAN} SKIPPED ${NC}";
 		fi
 	fi
 }
@@ -401,32 +394,20 @@ function install_emacs()
 # -----------------------------------------
 # ------ Autogenerate prompt -------------------------------------------------
 color_settings;
-#/skip_flags;
 prog_validator;
 prompt
 
 len="${#PROGRAM_LIST[@]}"
 
-ENDING="n";
-while [ "$ENDING" == "n" ];
+for ((i=0; i<"$len"; i++))
 do
-	for ((i=0; i<"$len"; i++))
-	do
-		#prog_validator
-		echo "valor de i es = to $i y len es $len"
-		tool="${PROGRAM_LIST["$i"]}"
-		tool_stat="${CTRL_DICT["$tool"]}"
-		echo "$tool_stat"
-		echo "$tool"
-		if [ "$tool_stat" == "NOT FOUND" ]
-		then
-			install_"$tool"
-			echo "return to call funtion"
-		fi
-		break
-	done
-		prompt;
-		prog_validator;
+	tool="${PROGRAM_LIST["$i"]}"
+	tool_stat="${CTRL_DICT["$tool"]}"
+	if [ "$tool_stat" == "NOT FOUND" ]
+	then
+		install_"$tool"
+	fi
+	echo "$(prog_validator; prompt)"
 done
 ENDING="n";
 while [ "$ENDING" == "n" ];
