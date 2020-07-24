@@ -1,4 +1,30 @@
 #!/usr/bin/env bash
+#----- program list for be install in the run script-----------
+PROGRAM_LIST=(
+	betty
+	zsh
+	git
+	shellcheck
+	valgrind
+	mysql
+	vim
+	emacs
+	caracoles
+	ereslomeju
+)
+#--------auto generate var promp dict (only for bash v4.0.0 or high------------
+declare -A PROMP_DICT
+for i in "${PROGRAM_LIST[@]}"
+do
+	PROMP_DICT["$i"]="NA"
+done
+
+#--------auto generate var control dict (only for bash v4.0.0 or high----------
+declare -A CTRL_DICT
+for i in "${PROGRAM_LIST[@]}"
+do
+	CTRL_DICT["$i"]+="NA"
+done
 
 # function that handles command-not-found message.
 command_not_found_handle()

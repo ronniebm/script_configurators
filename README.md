@@ -1,5 +1,5 @@
 # Script Configurators.  
-  
+test para docker container  
 #### FILE:  "a_config.sh" .
 ---------------------------------
 This script assistant will let you install:  
