@@ -224,7 +224,7 @@ install_git()
 	then
 		echo '3. Install git ? (y/n)';
 		read -r VAR1_GIT;
-		if [ "$VAR1_GIT" == "y" ]; 
+		if [ "$VAR1_GIT" == "y" ];
 		then
 			sudo apt-get update;
 			sudo apt-get install git;
@@ -249,7 +249,7 @@ install_git_credentials()
 	then
 		echo '4. Install git credential helper ? (y/n)';
 		read -r VAR1_GITCRED;
-		if [ "$VAR1_GITCRED" == "y" ]; 
+		if [ "$VAR1_GITCRED" == "y" ];
 		then
 			echo "";
 			echo -e "*Please write your github ${GREEN}USER NAME${NC} account:";
@@ -345,7 +345,7 @@ install_mysql()
 	then
 		echo '7. Install mysql ? (y/n)';
 		read -r VAR1_MYSQL;
-		if [ "$VAR1_MYSQL" == "y" ]; 
+		if [ "$VAR1_MYSQL" == "y" ];
 		then
 			sudo apt-get update;
 			sudo apt-get install mysql-server;
