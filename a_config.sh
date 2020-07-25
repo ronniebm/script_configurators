@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
 #----- program list for be install in the run script-----------
 PROGRAM_LIST=(
-	zsh
 	betty
 	git
+	git_config
 	shellcheck
 	valgrind
 	mysql
 	vim
 	emacs
+	zsh
 )
 #--------auto generate var prompt dict (only for bash v4.0.0 or high------------
 declare -A PROMP_DICT
@@ -100,6 +101,16 @@ function prog_validator()
 			else
 				CTRL_DICT["$tool"]="NOT FOUND";
 				PROMP_DICT["$tool"]="${RED}NOT FOUND${NC}";
+			fi
+
+			if [ -e "$HOME/.git-credentials" ] && [ "$tool" == "git_config" ]
+			then
+				CTRL_DICT["$tool"]="INSTALLED";
+				PROMP_DICT["$tool"]="${GREEN}INSTALLED${NC}";
+			else
+				CTRL_DICT["$tool"]="NOT FOUND";
+				PROMP_DICT["$tool"]="${RED}NOT FOUND${NC}";
+
 			fi
 		fi
 	done
@@ -204,9 +215,9 @@ function install_git()
 }
 
 # 4. git_credentials installation.
-function install_git_credentials()
+function install_git_config()
 {
-	if [ $GITCRED_SKIP = 0 ];
+	if [ "${CTRL_DICT["git_config"]}" != "SKIPPED" ];
 	then
 		echo 'Install git credential helper ? (y/n)';
 		read -r VAR1_GITCRED;
@@ -223,9 +234,6 @@ function install_git_credentials()
 			echo "";
 			echo -e "*Please write your github ${GREEN}EMAIL${NC} account:";
 			read -r GIT_EMAIL;
-			#git config --global user.name $GIT_USER;
-			#git config --global user.email $GIT_EMAIL;
-			#git config --global push.default matching
 			# ----------------------------------------------------------------
 			echo "[user]" > $HOME/.gitconfig
 			echo "     name = $GIT_USER" >> $HOME/.gitconfig
@@ -245,9 +253,8 @@ function install_git_credentials()
 			sleep 2;
 		elif [ "$VAR1_GITCRED" == "n" ];
 		then
-			GITCRED_SKIP=1;
-			GITCRED_STAT="SKIPPED";
-			GITCRED_P="${CYAN} SKIPPED ${NC}"
+			CTRL_DICT["git_config"]="SKIPPED"
+			PROMP_DICT["git_config"]="${CYAN} SKIPPED ${NC}";
 		fi
 	fi
 }
@@ -423,7 +430,7 @@ do
 done
 
 cls;
-if [ -f "$PWD/ohmyzsh/tools/install.sh" ]
+if [ -e "$PWD/ohmyzsh/tools/install.sh" ]
 then
     sh $PWD/ohmyzsh/tools/install.sh;
 fi
