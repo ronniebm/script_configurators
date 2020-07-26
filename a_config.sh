@@ -99,17 +99,14 @@ function prog_validator()
 				CTRL_DICT["$tool"]="INSTALLED";
 				PROMP_DICT["$tool"]="${GREEN}INSTALLED${NC}";
 			else
-				CTRL_DICT["$tool"]="NOT FOUND";
-				PROMP_DICT["$tool"]="${RED}NOT FOUND${NC}";
-			fi
-
-			if [ -e "$HOME/.git-credentials" ] && [ "$tool" == "git_config" ]
-			then
-				CTRL_DICT["$tool"]="INSTALLED";
-				PROMP_DICT["$tool"]="${GREEN}INSTALLED${NC}";
-			else
-				CTRL_DICT["$tool"]="NOT FOUND";
-				PROMP_DICT["$tool"]="${RED}NOT FOUND${NC}";
+				if [ -e "$HOME/.git-credentials" ] && [ "$tool" == "git_config" ]
+				then
+					CTRL_DICT["$tool"]="INSTALLED";
+					PROMP_DICT["$tool"]="${GREEN}INSTALLED${NC}";
+				else
+					CTRL_DICT["$tool"]="NOT FOUND";
+					PROMP_DICT["$tool"]="${RED}NOT FOUND${NC}";
+				fi
 
 			fi
 		fi
