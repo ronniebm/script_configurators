@@ -137,6 +137,7 @@ function install_betty()
 			cd "$PWD"/Betty
 			source ./install.sh;
 			sudo -y cp assets/scripts_config/betty /bin/;
+			cd..
 			rm -rf "$PWD"/Betty;
 		elif [ "$VAR1_BETTY" == "n" ];
 		then
