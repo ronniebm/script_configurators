@@ -71,18 +71,9 @@ color_settings()
 	YELLOW="\033[1;33m"; WHITE="\033[1;37m"; NC="\033[0m";
 }
 
-skip_flags()
-{
-	BETTY_SKIP=0; ZSH_SKIP=0; GIT_SKIP=0; GITCRED_SKIP=0;
-	SHELLCHECK_SKIP=0; VALGRIND_SKIP=0; MYSQL_SKIP=0;
-	VIM_SKIP=0; EMACS_SKIP=0;
-}
-
 # installed programs checker.
 function prog_validator()
 {
-	FILE1=/$HOME/.git-credentials
-	COUNTER=0
 	RED="\033[0;31m"
 	GREEN="\033[0;32m"
 	NC="\033[0m"
@@ -143,10 +134,9 @@ function install_betty()
 			echo 'preparing for installation proccess. wait !';
 			echo '*******************************************';
 			sleep 2;
-			cd $PWD/Betty;
-			source ./install.sh;
+			source "$PWD"/Betty/install.sh;
 			sudo -y cp assets/scripts_config/betty /bin/;
-			rm -rf $PWD/Betty;
+			rm -rf "$PWD"/Betty;
 		elif [ "$VAR1_BETTY" == "n" ];
 		then
 			CTRL_DICT["betty"]="SKIPPED"
@@ -170,7 +160,7 @@ function install_zsh()
 			sudo apt-get install -y zsh;
 			wait
 			git clone https://github.com/ohmyzsh/ohmyzsh.git;
-			chmod u+x $PWD/oh-my-zsh/tools/install.sh;
+			chmod u+x "$PWD"/oh-my-zsh/tools/install.sh;
 			clear;
 			echo "**************************************";
 			echo "  Zsh Shell successfully Installed... ";
@@ -232,15 +222,15 @@ function install_git_config()
 			echo -e "*Please write your github ${GREEN}EMAIL${NC} account:";
 			read -r GIT_EMAIL;
 			# ----------------------------------------------------------------
-			echo "[user]" > $HOME/.gitconfig
-			echo "     name = $GIT_USER" >> $HOME/.gitconfig
-			echo "     email = $GIT_EMAIL" >> $HOME/.gitconfig
-			echo "[push]" >> $HOME/.gitconfig
-			echo "     default = matching" >> $HOME/.gitconfig
-			echo "[credential]" >> $HOME/.gitconfig
-			echo "     helper = store" >> $HOME/.gitconfig
+			echo "[user]" > "$HOME"/.gitconfig
+			echo "     name = "$GIT_USER" >> "$HOME"/.gitconfig
+			echo "     email = "$GIT_EMAIL" >> "$HOME"/.gitconfig
+			echo "[push]" >> "$HOME"/.gitconfig
+			echo "     default = matching" >> "$HOME"/.gitconfig
+			echo "[credential]" >> "$HOME"/.gitconfig
+			echo "     helper = store" >> "$HOME"/.gitconfig
 			# ----------------------------------------------------------------
-			echo "https://$GIT_USER:$GIT_PASSW@github.com" >> $HOME/.git-credentials
+			echo "https://$GIT_USER:$GIT_PASSW@github.com" >> "$HOME"/.git-credentials
 			return;
 
 			clear;
@@ -383,7 +373,7 @@ function install_emacs()
 			sudo apt-get update -y;
 			sudo apt-get install -y emacs;
 			wait;
-			sh $PWD/assets/scripts_config/emacs.sh;
+			sh "$PWD"/assets/scripts_config/emacs.sh;
 			wait;
 		elif [ "$VAR1_EMACS" == "n" ];
 		then
@@ -429,5 +419,5 @@ done
 cls;
 if [ -e "$PWD/ohmyzsh/tools/install.sh" ]
 then
-    sh $PWD/ohmyzsh/tools/install.sh;
+    sh "$PWD"/ohmyzsh/tools/install.sh;
 fi
