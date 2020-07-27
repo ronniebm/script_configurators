@@ -137,7 +137,7 @@ function install_betty()
 			cd "$PWD"/Betty
 			source ./install.sh;
 			sudo -y cp assets/scripts_config/betty /bin/;
-			cd..
+			cd ..
 			rm -rf "$PWD"/Betty;
 		elif [ "$VAR1_BETTY" == "n" ];
 		then
@@ -225,8 +225,8 @@ function install_git_config()
 			read -r GIT_EMAIL;
 			# ----------------------------------------------------------------
 			echo "[user]" > "$HOME"/.gitconfig
-			echo "     name = "$GIT_USER" >> "$HOME"/.gitconfig
-			echo "     email = "$GIT_EMAIL" >> "$HOME"/.gitconfig
+			echo "     name = $GIT_USER" >> "$HOME"/.gitconfig
+			echo "     email = $GIT_EMAIL" >> "$HOME"/.gitconfig
 			echo "[push]" >> "$HOME"/.gitconfig
 			echo "     default = matching" >> "$HOME"/.gitconfig
 			echo "[credential]" >> "$HOME"/.gitconfig
