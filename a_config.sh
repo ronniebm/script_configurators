@@ -134,7 +134,8 @@ function install_betty()
 			echo 'preparing for installation proccess. wait !';
 			echo '*******************************************';
 			sleep 2;
-			source "$PWD"/Betty/install.sh;
+			cd "$PWD"/Betty
+			source ./install.sh;
 			sudo -y cp assets/scripts_config/betty /bin/;
 			rm -rf "$PWD"/Betty;
 		elif [ "$VAR1_BETTY" == "n" ];
