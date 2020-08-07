@@ -43,4 +43,3 @@ sudo systemctl status docker
 #3.  RESTART YOUR SHELL TERMINAL (TTY)
 #4.  newgrp docker
 #5.  docker run hello-world   // it will show you welcome message without using SUDO.
-
