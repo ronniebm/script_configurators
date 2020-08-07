@@ -35,3 +35,12 @@ sudo apt install docker-ce
 
 # 8. Check if Docker is running OK.
 sudo systemctl status docker
+
+# STEPS AFTER DOCKER INSTALL ! SUDO PERMISSIONS.
+#
+#1.  sudo groupadd docker  // if it's already created, it will show you and no problem.
+#2.  sudo usermod -aG docker $USER
+#3.  RESTART YOUR SHELL TERMINAL (TTY)
+#4.  newgrp docker
+#5.  docker run hello-world   // it will show you welcome message without using SUDO.
+
