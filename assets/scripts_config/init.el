@@ -4,6 +4,7 @@
 ;; ================================================================================================
 
 ; SHORT SETTINGS ----------------------------------------------------------------------------------
+
 (package-initialize)                                          ;; package initialize.
 (setq inhibit-startup-screen t)                               ;; dissable startup screen.
 (menu-bar-mode -1)                                            ;; dissable menu bar.
@@ -97,7 +98,7 @@ width=30%/>  \n\n\n"
 	  ))
 
 ;; ==============================================================
-;; 15) Make Lines moves UP/DOWN, with M-up / M-down key-binds.
+;; Make Lines moves UP/DOWN, with M-up / M-down key-binds.
 ;; this is a very interesting feature !.. also it works if
 ;; you select 2 or more lines, and then the key-bind.
 ;; ==============================================================
@@ -148,7 +149,7 @@ width=30%/>  \n\n\n"
 
 
 
-; LONG SETTINGS ----------------------------------------------------------------------------------
+; LONG CODE SETTINGS ----------------------------------------------------------------------------------
 
 ;; === SET EMACS DEFAULT FONT (WINDOWS, MAC, or GNU/LINUX) ===
 
