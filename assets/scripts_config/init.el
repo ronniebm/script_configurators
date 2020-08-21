@@ -18,7 +18,7 @@
 (global-set-key (kbd "RET") 'newline-and-indent)              ;; new-line-and-intent.
 (setq make-backup-files nil)                                  ;; prevent bakup files ~
 (global-hl-line-mode 1)                                       ;; highlight current line.
-(set-face-background 'hl-line "#e3e229")                      ;; face backgrount line.
+;(set-face-background 'hl-line "#e3e229")                      ;; face backgrount line.
 (line-number-mode 1)                                          ;; show line num bottom bar.
 (global-linum-mode t)                                         ;; show line num left-colum.
 (setq linum-format " %3d ")                                   ;; line num lef-colum format.
@@ -58,10 +58,25 @@
 (clear-abbrev-table global-abbrev-table)
 (define-abbrev-table 'global-abbrev-table
   '(
-    ;; my personal abbrev
-    ("docstring" "\"\"\"by the way
-	      this is a
-	      long example !!" )
+    ("html5" "<!DOCTYPE html>
+<html lang=\"en\">
+  <head>
+    <meta charset=\"utf-8\" />
+    <meta http-equiv=\"x-ua-compatible\" content=\"ie=edge\" />
+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />
+
+    <title></title>
+
+    <link rel=\"stylesheet\" href=\"css/main.css\" />
+    <link rel=\"icon\" href=\"images/favicon.png\" />
+  </head>
+
+  <body>
+    <script src=\"js/scripts.js\"></script>
+  </body>
+</html>" )
+
+    ("p," "<p> </p>")
 
     ))
 
@@ -320,7 +335,6 @@ width=30%/>  \n\n\n"
       flycheck                        ;; On the fly syntax checking
       py-autopep8                     ;; Run autopep8 on save
       blacken                         ;; Black formatting on save
-      all-the-icons                   ;; install all-the-icons package
       neotree                         ;; file explorer bar
       )
     )
