@@ -1,6 +1,6 @@
 ;; ======== RONNIE EMACS Customization init.el === ronnie.coding@gmail.com ========================
 ;;
-;; Tested:  Emacs 24.3 (ubuntu_14), Emacs 25.2 (ubuntu_18)
+;; Tested:  Emacs 24.3 (ubuntu_14), Emacs 25.2 (ubuntu_18), Emacs 26.3 (Android | Termux).
 ;; ================================================================================================
 
 ; SHORT SETTINGS ----------------------------------------------------------------------------------
@@ -9,8 +9,8 @@
 (setq inhibit-startup-screen t)                               ;; dissable startup screen.
 (menu-bar-mode -1)                                            ;; dissable menu bar.
 (tool-bar-mode -1)                                            ;; dissable tool bar.
-(scroll-bar-mode -1)                                          ;; dissable scroll bar.
-(if (display-graphic-p)(set-background-color "#aaaaaa"))     ;; if GUI, set bckg.color.
+(when (< emacs-major-version 26) (scroll-bar-mode -1))        ;; dissable scroll bar
+(if (display-graphic-p)(set-background-color "#aaaaaa"))      ;; if GUI, set bckg.color.
 (set-background-color "honeydew")
 (set-language-environment "UTF-8")                            ;; set language UTF-8.
 (setq initial-scratch-message "== My notes ==\n\n> ")         ;; *scratch* screen title.
@@ -51,6 +51,19 @@
 ; KEY-BINDS --------------------------------------------------------------------------------------
 (global-set-key [M-delete] 'kill-whole-line)        ;; delete actual line.
 (global-set-key [f12] 'delete-trailing-whitespace)  ;; delete trailing whitspc.
+
+
+; MY PERSONAL ABBREVIATIONS ----------------------------------------------------------------------
+(setq-default abbrev-mode t)
+(clear-abbrev-table global-abbrev-table)
+(define-abbrev-table 'global-abbrev-table
+  '(
+    ;; my personal abbrev
+    ("docstring" "\"\"\"by the way
+	      this is a
+	      long example !!" )
+
+    ))
 
 
 ;; MY FUNCTIONS ----------------------------------------------------------------------------------
@@ -252,6 +265,63 @@ width=30%/>  \n\n\n"
       anaconda-mode
       ac-c-headers
       ac-html
+      )
+    )
+
+  ; installing packages. -------------------------------------------------
+
+  (mapc #'(lambda (package)
+	  (unless (package-installed-p package)
+	    (package-install package)))
+      myPackages)
+
+  ; settings -------------------------------------------------------------
+
+  (global-flycheck-mode 1)
+
+  (elpy-enable)
+
+  (setq elpy-modules
+        (delq 'elpy-module-flymake elpy-modules))
+
+  (add-hook 'elpy-mode-hook 'flycheck-mode)
+
+  (require 'py-autopep8)
+  (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+
+  (require 'neotree)
+  (global-set-key [f8] 'neotree-toggle)
+
+  )
+
+; ***********************************************************************************************
+; PACKAGES CONFIGURATIONS (Applyed on Emacs version == 26)    |   Ronnie's Personal Setup.
+; ***********************************************************************************************
+
+(when (= emacs-major-version 26)
+
+
+  ; configuring melpa 'stable' repository --------------------------------
+
+  (require 'package)
+
+  (add-to-list
+   'package-archives
+;   '("melpa" . "https://stable.melpa.org/packages/")
+   '("melpa" . "https://melpa.org/packages/")
+   t)
+
+
+  ; creating a packages list. --------------------------------------------
+
+  (defvar myPackages
+    '(better-defaults                 ;; Set up some better Emacs defaults
+      elpy                            ;; Emacs Lisp Python Environment
+      flycheck                        ;; On the fly syntax checking
+      py-autopep8                     ;; Run autopep8 on save
+      blacken                         ;; Black formatting on save
+      all-the-icons                   ;; install all-the-icons package
+      neotree                         ;; file explorer bar
       )
     )
 
