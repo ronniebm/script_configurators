@@ -1,0 +1,64 @@
+#!/bin/bash
+# ============================
+# Atomic Design Script -------
+# created by: Ronnie B.M.
+# github:  ronniebm
+# ============================
+
+#0. Declaring variables.
+root="./src/components"
+atoms="$root/ui/atoms"
+molecules="$root/ui/molecules"
+organisms="$root/ui/organisms"
+pages="$root/pages"
+
+#1. Specify the component's list file.
+input="atomic-list"
+
+#2. Create Components directory.
+mkdir -p $atoms $molecules $organisms $pages
+
+#3. Reading atomic-list to create the components.
+while IFS= read -r line
+do
+  ATOM='a-'
+  MOL='m-'
+  ORG='o-'
+  PAGE='p-'
+  name=${line:2}
+  text="export const $name = (props) => {\n\treturn <div className={\`\${props.className}\`}>-$name component-</div>\n};"
+
+  if [[ "$line" == *"$ATOM"* ]]; then
+    path=${atoms}
+  elif [[ "$line" == *"$MOL"* ]]; then
+    path=${molecules}
+  elif [[ "$line" == *"$ORG"* ]]; then
+    path=${organisms}
+  elif [[ "$line" == *"$PAGE"* ]]; then
+    path=${pages}
+  fi
+  
+  if [[ ! -d "$path/$name" ]]; then
+    mkdir $path/$name
+    echo "export { $name } from './$name'" > $path/$name/index.js
+    echo -e $text > $path/$name/$name.jsx
+    echo -e "export { $name } from './$name';" >> $path/index.js
+    echo -e "\t-component created: $name"
+  fi
+done < "$input"
+
+#4. Overriding index files for: atoms, molecules, organisms.
+rm -rf $atoms/index.js $molecules/index.js $organisms/index.js $pages/index.js
+
+files=("ui/atoms" "ui/molecules" "ui/organisms" "pages")
+
+for str in ${files[@]}; do
+  size=${#str}
+
+  for folder in src/components/$str/*; do
+    if [ -d "$folder" ]; then
+      name=${folder:$(( 18 + $size -2 ))}
+      echo -e "export { $name } from './$name';" >> $root/$str/index.js
+    fi
+  done
+done
